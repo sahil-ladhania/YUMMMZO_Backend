@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This is the Backend Folder of YUMMMZO.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +11,7 @@
   "author": "Sahil Ladhania",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7"
   }
 }
