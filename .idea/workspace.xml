@@ -5,23 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="550d9f17-75e5-45d6-98d8-9021f1061c90" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/routes/customerRoutes/OrdersAndPaymentRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/customerRoutes/RestaurantFiltersRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/CartRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/CartRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/CheckoutRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/CheckoutRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/ItemRatingRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/ItemRatingRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/MenuFeedRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/MenuFeedRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/MenuFiltersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/MenuFiltersRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/OrderHistoryRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/OrderHistoryRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/OrderRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/OrderTrackingRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/OrderTrackingRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/RestaurantFeedRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/RestaurantFeedRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/RestautantFiltersRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/ReviewRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/ReviewRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/customerRoutes/ScheduleOrdersRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/customerRoutes/ScheduleOrdersRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/README.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,6 +95,7 @@
       <workItem from="1731309255300" duration="6631000" />
       <workItem from="1731351179505" duration="1128000" />
       <workItem from="1731352317290" duration="4204000" />
+      <workItem from="1731443053240" duration="34000" />
     </task>
     <servers />
   </component>

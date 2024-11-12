@@ -1,2 +1,3 @@
 # Environment variables
 src/config/.env
+.env
