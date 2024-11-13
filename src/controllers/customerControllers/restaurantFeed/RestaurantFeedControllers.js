@@ -1,12 +1,12 @@
 
-export const getAllOpenRestaurants = async () => {
+export const getAllOpenRestaurants = async (req , res) => {
     
 };
 
-export const getAllRestaurants = async () => {
+export const getAllRestaurants = async (req , res) => {
     
 };
 
-export const getRestaurant = async () => {
+export const getRestaurant = async (req , res) => {
     
 };

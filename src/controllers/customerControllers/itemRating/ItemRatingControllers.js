@@ -1,4 +1,4 @@
 
-export const rateMenuItem = async () => {
+export const rateMenuItem = async (req , res) => {
     
 };

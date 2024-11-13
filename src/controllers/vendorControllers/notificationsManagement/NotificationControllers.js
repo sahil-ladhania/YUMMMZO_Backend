@@ -1,4 +1,4 @@
 
-export const getNotification_R = async () => {
+export const getNotification_R = async (req , res) => {
     
 };

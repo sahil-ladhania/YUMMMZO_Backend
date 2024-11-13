@@ -1,20 +1,20 @@
 
-export const createMenu = async () => {
+export const createMenu = async (req , res) => {
     
 };
 
-export const updateMenu = async () => {
+export const updateMenu = async (req , res) => {
     
 };
 
-export const deleteMenu = async () => {
+export const deleteMenu = async (req , res) => {
     
 };
 
-export const getAllMenu = async () => {
+export const getAllMenu = async (req , res) => {
     
 };
 
-export const getMenu = async () => {
+export const getMenu = async (req , res) => {
     
 };

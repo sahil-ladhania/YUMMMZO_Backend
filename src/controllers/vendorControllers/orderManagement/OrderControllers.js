@@ -1,13 +1,13 @@
 
 
-export const getAllRestaurantOrders = async () => {
+export const getAllRestaurantOrders = async (req , res) => {
     
 };
 
-export const getOneDayRestaurantOrders = async () => {
+export const getOneDayRestaurantOrders = async (req , res) => {
     
 };
 
-export const updateOrderStatus_R = async () => {
+export const updateOrderStatus_R = async (req , res) => {
     
 };

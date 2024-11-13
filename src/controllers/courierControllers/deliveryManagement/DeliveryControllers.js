@@ -1,20 +1,20 @@
 
-export const getActiveOrders = async () => {
+export const getActiveOrders = async (req , res) => {
     
 };
 
-export const getDeliveryHistory = async () => {
+export const getDeliveryHistory = async (req , res) => {
     
 };
 
-export const acceptActiveOrders = async () => {
+export const acceptActiveOrders = async (req , res) => {
     
 };
 
-export const rejectActiveOrders = async () => {
+export const rejectActiveOrders = async (req , res) => {
     
 };
 
-export const updateOrderStatus_DP = async () => {
+export const updateOrderStatus_DP = async (req , res) => {
     
 };

@@ -1,21 +1,21 @@
 
-export const createRestaurant = async () => {
+export const createRestaurant = async (req , res) => {
     
 };
 
-export const updateRestaurant = async () => {
+export const updateRestaurant = async (req , res) => {
     
 };
 
-export const deleteRestaurant = async () => {
+export const deleteRestaurant = async (req , res) => {
     
 };
 
-export const getAllRestaurant = async () => {
+export const getAllRestaurant = async (req , res) => {
     
 };
 
-export const getRestaurant = async () => {
+export const getRestaurant = async (req , res) => {
     
 };
   

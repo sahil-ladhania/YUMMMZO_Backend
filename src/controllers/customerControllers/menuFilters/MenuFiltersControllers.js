@@ -1,4 +1,4 @@
 
-export const filterMenu = async () => {
+export const filterMenu = async (req , res) => {
     
 };

@@ -1,4 +1,4 @@
 
-export const checkout = async () => {
+export const checkout = async (req , res) => {
     
 };

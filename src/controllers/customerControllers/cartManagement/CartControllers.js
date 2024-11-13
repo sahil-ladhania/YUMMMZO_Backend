@@ -1,16 +1,16 @@
 
-export const addToCart = async () => {
+export const addToCart = async (req , res) => {
     
 };
 
-export const incrementItem = async () => {
+export const incrementItem = async (req , res) => {
     
 };
 
-export const decrementItem = async () => {
+export const decrementItem = async (req , res) => {
     
 };
 
-export const getCart = async () => {
+export const getCart = async (req , res) => {
     
 };
