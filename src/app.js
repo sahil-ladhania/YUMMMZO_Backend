@@ -42,6 +42,7 @@ app.use(ItemRatingRoutes);
 app.use(OrderHistoryRoutes);
 app.use(OrderTrackingRoutes);
 app.use(ScheduleOrdersRoutes);
+console.log("After Routes");
 
 app.listen(port, () => {
     console.log(`YUMMMZO listening on port ${port}`)
