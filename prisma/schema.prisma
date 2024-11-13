@@ -22,6 +22,7 @@ model User{
   password String @unique
   role Role @default(CUSTOMER)
   addresses Address[]
+  orders Order[]
   createdAt DateTime
   updatedAt DateTime
 }
@@ -73,6 +74,7 @@ model Menu{
   menuName String
   description String
   isActive Boolean @default(false)
+  menuItems MenuItem[]
   createdAt DateTime
   updatedAt DateTime
 }
@@ -96,7 +98,7 @@ model Cart{
   cartId Int @id @default(autoincrement())
   userId Int
   restaurantId Int
-  items 
+  items MenuItem[]
   totalPrice Int
   createdAt DateTime
   updatedAt DateTime
@@ -116,7 +118,7 @@ model Order{
   customerId Int
   restaurantId Int
   courierId Int
-  items 
+  items
   paymentId Int
   orderStatus String
   createdAt DateTime
@@ -128,7 +130,7 @@ model Review{
   review String
   userId Int
   restaurantId Int
-  itemId Int
+  comments Comment[]
   createdAt DateTime
   updatedAt DateTime
 }
@@ -138,6 +140,7 @@ model Comment{
   comment String
   reviewId Int
   userId Int
+  replies Reply[]
   createdAt DateTime
   updatedAt DateTime
 }
