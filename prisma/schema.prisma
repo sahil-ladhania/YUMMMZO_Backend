@@ -8,192 +8,193 @@ datasource db {
 }
 
 // Defining Models
-model User{
-  userId Int @id @default(autoincrement())
-  firstName String @db.VarChar(50)
-  lastName String @db.VarChar(100)
-  email String @unique @db.VarChar(100)
-  password String 
+model User {
+  userId      Int      @id @default(autoincrement())
+  firstName   String   @db.VarChar(50)
+  lastName    String   @db.VarChar(100)
   phoneNumber String
-  role Role @default(CUSTOMER)
-  addresses Address[]
-  orders Order[]
-  currentLocation String?
-  courierStatus CourierStatus? @default(AVAILABLE)
-  restaurants Restaurant[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  email       String   @unique @db.VarChar(100)
+  password    String
+  role        Role     @default(CUSTOMER)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }
 
-model Address{
-  addressId Int @id @default(autoincrement())
-  userId Int
-  street String @db.VarChar(500)
-  apartment String @db.VarChar(500)
-  city String @db.VarChar(100)
-  state String @db.VarChar(100)
-  postalCode Int
-  country String @db.VarChar(100)
-  addressType AddressType @default(HOME)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  customer User? @relation("CustomerAddresses", fields: [userId], references: [userId])
-  vendor User? @relation("VendorAddresses", fields: [userId], references: [userId])
-} 
-
-model Cuisine{
-  cuisineId Int @id @default(autoincrement())
-  name String @unique @db.VarChar(100)
-  description String @db.VarChar(500)
-  image String
-  cuisineType CuisineType
-  restaurants Restaurant[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-}
-
-model Restaurant{
-  restaurantId Int @id @default(autoincrement())
-  userId Int
-  restaurantName String @db.VarChar(200)
-  image String
-  totalReviews Int @default(0)
-  ratings Float @default(0)
-  isPureVeg Boolean @default(false)
-  priceForTwo Int
-  deliveryTime Int
-  cuisines Cuisine[]
-  locations Address[]
-  menu Menu[]
-  openingTime DateTime
-  closingTime DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  vendor User @relation(fields: [userId] , references: [userId])
-}
-
-model Menu{
-  menuId Int @id @default(autoincrement())
-  restaurantId Int
-  menuName String @db.VarChar(200)
-  description String @db.VarChar(500)
-  isActive Boolean @default(false)
-  menuItems MenuItem[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  restaurant Restaurant @relation(fields: [restaurantId] , references: [restaurantId])
-}
-
-model MenuItem{
-  itemId Int @id @default(autoincrement())
-  menuId Int
-  cartId Int
-  itemName String @db.VarChar(200)
-  itemDescription String @db.VarChar(500)
-  itemCategory ItemCategory
-  image String
-  isVeg Boolean @default(false)
-  isBestSeller Boolean @default(false)
-  totalReviews Int @default(0)
-  ratings Float @default(0)
-  quantity Int @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  menu Menu @relation(fields: [menuId] , references: [menuId])
-  cart Cart @relation(fields: [cartId] , references: [cartId])
-}
-
-model Cart{
-  cartId Int @id @default(autoincrement())
-  userId Int
-  restaurantId Int
-  items MenuItem[]
-  totalPrice Int @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-}
-
-model OrderedItem{
-  orderItemId Int @id @default(autoincrement())
-  orderId Int
-  menuItemId Int
-  quantity Int @default(1)
-  totalPrice Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-}
-
-model Order{
-  orderId Int @id @default(autoincrement())
-  customerId Int
-  restaurantId Int
-  courierId Int
-  orderedItems 
-  paymentId Int
-  orderStatus OrderStatus @default(PENDING)
-  createdAt DateTime @default(now())
-}
-
-model Payment{
-  paymentId Int @id @default(autoincrement())
-  userId Int
-  totalAmount Int
-  orderId Int
-  paymentStatus PaymentStatus @default(PENDING)
-  createdAt DateTime @default(now())
-}
-
-model OrderTracking{
-  trackingId Int @id @default(autoincrement())
-  orderId Int
-  orderStatus OrderStatus
-  trackingStatus TrackingStatus
-  updatedAt DateTime @default(now())
-}
-
-model Review{
-  reviewId Int @id @default(autoincrement())
-  rating Float @default(0)
-  review String @db.VarChar(500)
-  userId Int
-  restaurantId Int
-  comments Comment[] 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-}
-
-model Comment{
-  commentId Int @id @default(autoincrement())
-  reviewId Int
-  comment String @db.VarChar(500)
-  userId Int
-  replies Reply[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  review Review @relation(fields: [reviewId] , references: [reviewId])
-}
-
-model Reply{
-  replyId Int @id @default(autoincrement())
-  commentId Int
-  reply String @db.VarChar(500)
-  userId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-  comment Comment @relation(fields: [commentId] , references: [commentId])
-}
-
-model Notifications{
-  notificationId Int @id @default(autoincrement())
-  userId Int
-  message String @db.VarChar(200)
-  notificationStatus NotificationStatus
-  notificationType NotificationType
-  createdAt DateTime @default(now())
-  customer User? @relation("CustomerNotifications", fields: [userId], references: [userId])
-  vendor User? @relation("VendorNotifications", fields: [userId], references: [userId])
-  courier User? @relation("CourierNotifications", fields: [userId], references: [userId])
-}
+// model Address {
+//   addressId              Int         @id @default(autoincrement())
+//   userId                 Int
+//   street                 String      @db.VarChar(500)
+//   apartment              String      @db.VarChar(500)
+//   city                   String      @db.VarChar(100)
+//   state                  String      @db.VarChar(100)
+//   postalCode             Int
+//   country                String      @db.VarChar(100)
+//   addressType            AddressType @default(HOME)
+//   createdAt              DateTime    @default(now())
+//   updatedAt              DateTime    @default(now())
+//   Restaurant             Restaurant? @relation(fields: [restaurantRestaurantId], references: [restaurantId])
+//   restaurantRestaurantId Int?
+// }
+//
+// model Cuisine {
+//   cuisineId   Int          @id @default(autoincrement())
+//   name        String       @unique @db.VarChar(100)
+//   description String       @db.VarChar(500)
+//   image       String
+//   cuisineType CuisineType
+//   restaurants Restaurant[]
+//   createdAt   DateTime     @default(now())
+//   updatedAt   DateTime     @default(now())
+// }
+//
+// model Restaurant {
+//   restaurantId   Int       @id @default(autoincrement())
+//   userId         Int
+//   restaurantName String    @db.VarChar(200)
+//   image          String
+//   totalReviews   Int       @default(0)
+//   ratings        Float     @default(0)
+//   isPureVeg      Boolean   @default(false)
+//   priceForTwo    Int
+//   deliveryTime   Int
+//   cuisines       Cuisine[]
+//   locations      Address[]
+//   menu           Menu[]
+//   openingTime    DateTime
+//   closingTime    DateTime
+//   createdAt      DateTime  @default(now())
+//   updatedAt      DateTime  @default(now())
+//   vendor         User      @relation(fields: [userId], references: [userId])
+// }
+//
+// model Menu {
+//   menuId       Int        @id @default(autoincrement())
+//   restaurantId Int
+//   menuName     String     @db.VarChar(200)
+//   description  String     @db.VarChar(500)
+//   isActive     Boolean    @default(false)
+//   menuItems    MenuItem[]
+//   createdAt    DateTime   @default(now())
+//   updatedAt    DateTime   @default(now())
+//   restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId])
+// }
+//
+// model MenuItem {
+//   itemId          Int          @id @default(autoincrement())
+//   menuId          Int
+//   cartId          Int
+//   itemName        String       @db.VarChar(200)
+//   itemDescription String       @db.VarChar(500)
+//   itemCategory    ItemCategory
+//   image           String
+//   isVeg           Boolean      @default(false)
+//   isBestSeller    Boolean      @default(false)
+//   totalReviews    Int          @default(0)
+//   ratings         Float        @default(0)
+//   quantity        Int          @default(0)
+//   createdAt       DateTime     @default(now())
+//   updatedAt       DateTime     @default(now())
+//   menu            Menu         @relation(fields: [menuId], references: [menuId])
+//   cart            Cart         @relation(fields: [cartId], references: [cartId])
+// }
+//
+// model Cart {
+//   cartId       Int        @id @default(autoincrement())
+//   userId       Int
+//   restaurantId Int
+//   items        MenuItem[] // add quantity
+//   totalPrice   Int        @default(0)
+//   createdAt    DateTime   @default(now())
+//   updatedAt    DateTime   @default(now())
+// }
+//
+// model OrderedItem {
+//   orderItemId  Int      @id @default(autoincrement())
+//   orderId      Int
+//   menuItemId   Int
+//   quantity     Int      @default(1)
+//   totalPrice   Float
+//   createdAt    DateTime @default(now())
+//   updatedAt    DateTime @default(now())
+//   Order        Order?   @relation(fields: [orderOrderId], references: [orderId])
+//   orderOrderId Int?
+// }
+//
+// // understand why payment pe orderId map hota hai ?
+// model Order {
+//   orderId      Int           @id @default(autoincrement())
+//   customerId   Int
+//   restaurantId Int
+//   courierId    Int
+//   orderedItems OrderedItem[]
+//   orderStatus  OrderStatus   @default(PENDING)
+//   createdAt    DateTime      @default(now())
+//   User         User?         @relation(fields: [userUserId], references: [userId])
+//   userUserId   Int?
+// }
+//
+// model Payment {
+//   paymentId     Int           @id @default(autoincrement())
+//   userId        Int
+//   totalAmount   Int
+//   orderId       Int
+//   paymentStatus PaymentStatus @default(PENDING)
+//   createdAt     DateTime      @default(now())
+// }
+//
+// // orderStatus humesha order model mai hoga
+// model OrderTracking {
+//   trackingId     Int            @id @default(autoincrement())
+//   orderId        Int
+//   orderStatus    OrderStatus
+//   trackingStatus TrackingStatus
+//   updatedAt      DateTime       @default(now())
+// }
+//
+// model Review {
+//   reviewId     Int       @id @default(autoincrement())
+//   rating       Float     @default(0)
+//   review       String    @db.VarChar(500)
+//   userId       Int
+//   restaurantId Int
+//   comments     Comment[]
+//   createdAt    DateTime  @default(now())
+//   updatedAt    DateTime  @default(now())
+// }
+//
+// // parentCommentId
+// model Comment {
+//   commentId Int      @id @default(autoincrement())
+//   reviewId  Int
+//   comment   String   @db.VarChar(500)
+//   userId    Int
+//   replies   Reply[]
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @default(now())
+//   review    Review   @relation(fields: [reviewId], references: [reviewId])
+// }
+//
+// model Reply {
+//   replyId   Int      @id @default(autoincrement())
+//   commentId Int
+//   reply     String   @db.VarChar(500)
+//   userId    Int
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @default(now())
+//   comment   Comment  @relation(fields: [commentId], references: [commentId])
+// }
+//
+// model Notifications {
+//   notificationId     Int                @id @default(autoincrement())
+//   userId             Int
+//   message            String             @db.VarChar(200)
+//   notificationStatus NotificationStatus
+//   notificationType   NotificationType
+//   createdAt          DateTime           @default(now())
+//   customer           User?              @relation("CustomerNotifications", fields: [userId], references: [userId])
+//   vendor             User?              @relation("VendorNotifications", fields: [userId], references: [userId])
+//   courier            User?              @relation("CourierNotifications", fields: [userId], references: [userId])
+// }
 
 // Defining Enums
 enum Role {
@@ -203,60 +204,60 @@ enum Role {
   ADMIN
 }
 
-enum AddressType {
-  HOME
-  OFFICE
-  OTHER
-}
-
-enum ItemCategory {
-  MAIN_COURSE
-  DESSERT
-  BEVERAGE
-  SIDE
-  APPETIZER
-}
-
-enum CuisineType {
-  INDIAN
-  CHINESE
-  ITALIAN
-  MEXICAN
-  JAPANESE
-  FRENCH
-}
-
-enum PaymentStatus {
-  PENDING
-  SUCCESS 
-  FAILED
-}
-
-enum OrderStatus { 
-  PENDING
-  COMPLETED
-  CANCELLED
-}
-
-enum TrackingStatus {
-  Dispatched
-  IN_TRANSIT
-  DELIVERED
-}
-
-enum CourierStatus {
-  AVAILABLE
-  BUSY
-  OFFLINE
-}
-
-enum NotificationStatus {
-  UNREAD
-  READ
-}
-
-enum NotificationType {
-  ORDER_UPDATE
-  PROMOTION
-  GENERAL
-}
+// enum AddressType {
+//   HOME
+//   OFFICE
+//   OTHER
+// }
+//
+// enum ItemCategory {
+//   MAIN_COURSE
+//   DESSERT
+//   BEVERAGE
+//   SIDE
+//   APPETIZER
+// }
+//
+// enum CuisineType {
+//   INDIAN
+//   CHINESE
+//   ITALIAN
+//   MEXICAN
+//   JAPANESE
+//   FRENCH
+// }
+//
+// enum PaymentStatus {
+//   PENDING
+//   SUCCESS
+//   FAILED
+// }
+//
+// enum OrderStatus {
+//   PENDING
+//   COMPLETED
+//   CANCELLED
+// }
+//
+// enum TrackingStatus {
+//   Dispatched
+//   IN_TRANSIT
+//   DELIVERED
+// }
+//
+// enum CourierStatus {
+//   AVAILABLE
+//   BUSY
+//   OFFLINE
+// }
+//
+// enum NotificationStatus {
+//   UNREAD
+//   READ
+// }
+//
+// enum NotificationType {
+//   ORDER_UPDATE
+//   PROMOTION
+//   GENERAL
+// }

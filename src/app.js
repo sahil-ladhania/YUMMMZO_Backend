@@ -16,16 +16,16 @@ import ItemRatingRoutes from "./routes/customerRoutes/ItemRatingRoutes.js";
 import OrderHistoryRoutes from "./routes/customerRoutes/OrderHistoryRoutes.js";
 import OrderTrackingRoutes from "./routes/customerRoutes/OrderTrackingRoutes.js";
 import ScheduleOrdersRoutes from "./routes/customerRoutes/ScheduleOrdersRoutes.js";
+import UserRoutes from "./routes/internalAdminRoutes/UserRoutes.js";
 
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.use(express.json());
 
 console.log("Before Routes");
 app.use(AuthRoutes);
+app.use(UserRoutes);
 app.use(RestaurantRoutes);
 app.use(MenuRoutes);
 app.use(OrderRoutes);

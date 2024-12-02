@@ -1,17 +1,13 @@
 import express from 'express';
+import {
+    changePasswordController,
+    loginController,
+    signupController
+} from "../../controllers/commonControllers/authN_authZ/AuthController.js";
 const router = express.Router();
 
-router.post('/login' , (req, res) => {
-    res.send('Login');
-});
-router.post('/signup' , (req, res) => {
-    res.send('Signup');
-});
-router.post('/logout' , (req, res) => {
-    res.send('Logout');
-});
-router.put('/change-password' , (req, res) => {
-    res.send('Change Password');
-});
+router.post('/signup' , signupController);
+router.post('/login' , loginController);
+router.put('/change-password' , changePasswordController);
 
 export default router;
