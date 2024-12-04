@@ -88,3 +88,21 @@ export const updatePasswordService = async ({email , password , newHashedPasswor
         throw new Error('Error Updating User Password...' + error.message + error.stack);
     }
 };
+
+// Service for Getting the Permissions for a Specific Role
+export const getPermissionsByRole = async({role}) => {
+    try{
+        const permissions = await prisma.rolePermission.findMany({
+            where: {
+                role : role
+            },
+            include: {
+                permission : true
+            }
+        })
+        return permissions.map((rp) => rp.permission.name);
+    }
+    catch(error){
+        throw new Error('Failed to Fetch Permissions...');
+    }
+}
