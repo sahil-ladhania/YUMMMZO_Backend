@@ -12,5 +12,11 @@ router.put('/restaurants/:restaurantId' , authenticate , authorize('UPDATE_RESTA
 router.delete('/restaurants/:restaurantId' , authenticate , authorize('DELETE_RESTAURANT') ,  (req, res) => {
     res.send('Delete a Restaurant');
 })
+router.get('/restaurants' , authenticate , authorize('GET_ALL_RESTAURANTS_VENDOR') ,  (req, res) => {
+    res.send('Get all Restaurants for a Vendor');
+})
+router.get('/restaurants/:restaurantId' , authenticate , authorize('GET_RESTAURANT_VENDOR') ,  (req, res) => {
+    res.send('Get a Restaurant for a Vendor');
+})
 
 export default router;
