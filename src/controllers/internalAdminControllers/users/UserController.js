@@ -5,42 +5,36 @@ import {
     getAllUsersService, getARestaurantOwnerService, getAUserService
 } from "../../../services/internalAdminServices/userServices/UserService.js";
 
-export const getUsers = async(req , res) => {
+export const getUsers = async(req , res , next) => {
     try{
         const users = await getAllUsersService();
-        return res.status(201).send({
+        return res.status(200).send({
             message : "Users Successfully Retrieved...",
             user : users
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Getting Users...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 
-export const getUser = async(req , res) => {
+export const getUser = async(req , res , next) => {
     try{
         const {customerId} = req.params;
         const user = await getAUserService({customerId});
-        return res.status(201).send({
+        return res.status(200).send({
             message : "User Successfully Retrieved...",
             user : user
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Getting A User...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 
-export const getRestaurantOwners = async(req , res) => {
+export const getRestaurantOwners = async(req , res , next) => {
     try{
         const restaurantOwners = await getAllRestaurantOwners();
         return res.status(201).send({
@@ -49,15 +43,12 @@ export const getRestaurantOwners = async(req , res) => {
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Getting Restaurant Owners...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 
-export const getRestaurantOwner = async(req , res) => {
+export const getRestaurantOwner = async(req , res , next) => {
     try{
         const {vendorId} = req.params;
         const restaurantOwner = await getARestaurantOwnerService({vendorId});
@@ -67,15 +58,12 @@ export const getRestaurantOwner = async(req , res) => {
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Getting A Restaurant Owner...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 
-export const getDeliveryPartners = async(req , res) => {
+export const getDeliveryPartners = async(req , res , next) => {
     try{
         const deliveryPartners = await getAllDeliveryPartners();
         return res.status(201).send({
@@ -84,15 +72,12 @@ export const getDeliveryPartners = async(req , res) => {
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Getting Delivery Partners...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 
-export const getDeliveryPartner = async(req , res) => {
+export const getDeliveryPartner = async(req , res , next) => {
     try{
         const {courierId} = req.params;
         const deliveryPartner = await getADeliveryPartnerService({courierId});
@@ -102,9 +87,6 @@ export const getDeliveryPartner = async(req , res) => {
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Getting A Delivery Partner...",
-            error : error.message
-        })
+        next(error);
     }
 }

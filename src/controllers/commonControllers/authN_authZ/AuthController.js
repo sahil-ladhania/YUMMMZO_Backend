@@ -6,7 +6,7 @@ import {
 import {hashPassword} from "../../../utils/helpers/AuthHelpers.js";
 
 // Controller for Signing Up
-export const signupController = async(req , res) => {
+export const signupController = async(req , res , next) => {
     try{
         const {firstName , lastName , phoneNumber , email , password , role} = req.body;
         if(!firstName || !lastName || !phoneNumber || !email || !password){
@@ -30,15 +30,12 @@ export const signupController = async(req , res) => {
         }
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Creating User...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 // Controller for Logging In
-export const loginController = async(req , res) => {
+export const loginController = async(req , res , next) => {
     try{
         const {email , password} = req.body;
         if(!email || !password){
@@ -60,15 +57,12 @@ export const loginController = async(req , res) => {
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Logging In User...",
-            error : error.message
-        })
+        next(error);
     }
 }
 
 // Controller for Updating Password
-export const changePasswordController = async(req , res) => {
+export const changePasswordController = async(req , res , next) => {
     try{
         const {email , password , newPassword} = req.body;
         if(!email || !password || !newPassword){
@@ -85,9 +79,6 @@ export const changePasswordController = async(req , res) => {
         })
     }
     catch(error){
-        return res.status(500).send({
-            message : "Error Updating Password...",
-            error : error.message
-        })
+        next(error);
     }
 }

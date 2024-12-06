@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="550d9f17-75e5-45d6-98d8-9021f1061c90" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/middlewares/errorHandeling/ErrorHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/edge.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/index-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/index-browser.js" afterDir="false" />
@@ -14,9 +15,9 @@
       <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/schema.prisma" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/wasm.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/wasm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/vendorRoutes/RestaurantRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/vendorRoutes/RestaurantRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/internalAdminControllers/users/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/internalAdminControllers/users/UserController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +114,8 @@
       <workItem from="1733135282562" duration="11463000" />
       <workItem from="1733217841839" duration="11894000" />
       <workItem from="1733294600329" duration="18774000" />
-      <workItem from="1733381395878" duration="17362000" />
+      <workItem from="1733381395878" duration="18955000" />
+      <workItem from="1733469156788" duration="15653000" />
     </task>
     <servers />
   </component>
@@ -126,61 +128,51 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js</url>
           <line>2</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js</url>
           <line>7</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js</url>
           <line>12</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js</url>
           <line>17</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/vendorControllers/restaurantManagement/RestaurantControllers.js</url>
           <line>22</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js</url>
           <line>2</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js</url>
           <line>7</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js</url>
           <line>12</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js</url>
           <line>17</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js</url>
           <line>22</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>

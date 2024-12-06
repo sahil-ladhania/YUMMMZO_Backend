@@ -17,6 +17,7 @@ import OrderHistoryRoutes from "./routes/customerRoutes/OrderHistoryRoutes.js";
 import OrderTrackingRoutes from "./routes/customerRoutes/OrderTrackingRoutes.js";
 import ScheduleOrdersRoutes from "./routes/customerRoutes/ScheduleOrdersRoutes.js";
 import UserRoutes from "./routes/internalAdminRoutes/UserRoutes.js";
+import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
 
 const app = express()
 const port = 3000
@@ -43,6 +44,8 @@ app.use(OrderHistoryRoutes);
 app.use(OrderTrackingRoutes);
 app.use(ScheduleOrdersRoutes);
 console.log("After Routes");
+
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`YUMMMZO listening on port ${port}`)

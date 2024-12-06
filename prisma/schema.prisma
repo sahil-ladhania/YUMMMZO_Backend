@@ -7,12 +7,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Enums
 enum Role {
   CUSTOMER
   VENDOR
   COURIER
   ADMIN
 }
+
+enum UserAddressType {
+  HOME
+  OFFICE
+  OTHER
+}
+
+enum Day {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum ItemCategory {
+  MAIN_COURSE
+  APPETIZER
+  DESSERT
+  BEVERAGE
+  SIDE
+}
+
+// Models
 
 model User {
   userId      Int           @id @default(autoincrement())
@@ -24,7 +51,25 @@ model User {
   role        Role          @default(CUSTOMER)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
-  addresses   UserAddress[]
+  addresses   UserAddress[] // Relation - User can have multiple addresses
+}
+
+model UserAddress {
+  userAddressId  Int             @id @default(autoincrement())
+  userId         Int
+  buildingNumber String          @db.VarChar(50)
+  floorNumber    String          @db.VarChar(50)
+  apartment      String          @db.VarChar(500)
+  area           String          @db.VarChar(500)
+  nearbyLandmark String          @db.VarChar(200)
+  city           String          @db.VarChar(100)
+  state          String          @db.VarChar(100)
+  postalCode     Int
+  country        String          @db.VarChar(100)
+  addressType    UserAddressType @default(HOME)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now())
+  user           User            @relation(fields: [userId], references: [userId]) // Relation - Each address belongs to one user
 }
 
 model Permission {
@@ -44,76 +89,42 @@ model RolePermission {
   updatedAt        DateTime   @updatedAt
 }
 
-enum UserAddressType {
-  HOME
-  OFFICE
-  OTHER
-}
-
-model UserAddress {
-  userAddressId  Int             @id @default(autoincrement())
-  userId         Int
-  buildingNumber String          @db.VarChar(50)
-  floorNumber    String          @db.VarChar(50)
-  apartment      String          @db.VarChar(500)
-  area           String          @db.VarChar(500)
-  nearbyLandmark String          @db.VarChar(200)
-  city           String          @db.VarChar(100)
-  state          String          @db.VarChar(100)
-  postalCode     Int
-  country        String          @db.VarChar(100)
-  addressType    UserAddressType @default(HOME)
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @default(now())
-  user           User            @relation(fields: [userId], references: [userId])
-}
-
 model Cuisine {
   cuisineId   Int          @id @default(autoincrement())
   name        String       @unique @db.VarChar(100)
   description String       @db.VarChar(500)
   image       String
-  restaurants Restaurant[]
+  restaurants Restaurant[] @relation("CuisineOnRestaurant") // Relation - A cuisine can belong to multiple restaurants
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
 }
 
-model OpeningDay {
-  id           Int        @id @default(autoincrement())
-  day          String
-  restaurantId Int
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId])
-}
-
 model Restaurant {
-  restaurantId        Int                 @id @default(autoincrement())
-  userId              Int
-  restaurantName      String              @db.VarChar(200)
-  ownerName           String              @db.VarChar(200)
-  ownerEmail          String              @unique @db.VarChar(100)
-  ownerPhoneNumber    String
-  restaurantImage     String
-  cuisines            Cuisine[]
-  openingDays         OpeningDay[]
-  isPureVeg           Boolean             @default(false)
-  priceForTwo         Int
-  deliveryTime        Int
-  totalReviews        Int                 @default(0)
-  ratings             Float               @default(0)
-  openingTime         String
-  closingTime         String
-  createdAt           DateTime            @default(now())
-  updatedAt           DateTime            @default(now())
-  menu                Menu[]
-  addresses           RestaurantAddress[]
-  restaurantAddressId Int
+  restaurantId     Int                @id @default(autoincrement())
+  userId           Int
+  restaurantName   String             @db.VarChar(200)
+  ownerName        String             @db.VarChar(200)
+  ownerEmail       String             @unique @db.VarChar(100)
+  ownerPhoneNumber String
+  restaurantImage  String
+  isPureVeg        Boolean            @default(false)
+  priceForTwo      Int
+  deliveryTime     Int
+  totalReviews     Int                @default(0)
+  ratings          Float              @default(0)
+  openingTime      String
+  closingTime      String
+  openingDays      OpeningDay[] // Relation - A restaurant can be open on multiple days
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+  cuisines         Cuisine[]          @relation("CuisineOnRestaurant") // Relation - A restaurant can have multiple cuisines
+  menu             Menu[] // Relation - A restaurant can have multiple menus
+  addresses        RestaurantAddress? // Relation - A restaurant can have only one address
 }
 
 model RestaurantAddress {
   restaurantAddressId Int        @id @default(autoincrement())
-  restaurantId        Int
+  restaurantId        Int        @unique
   buildingNumber      String     @db.VarChar(50)
   floorNumber         String     @db.VarChar(50)
   area                String     @db.VarChar(500)
@@ -124,7 +135,7 @@ model RestaurantAddress {
   country             String     @db.VarChar(100)
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @default(now())
-  restaurant          Restaurant @relation(fields: [restaurantId], references: [restaurantId])
+  restaurant          Restaurant @relation(fields: [restaurantId], references: [restaurantId]) // Relation - Address belongs to one restaurant
 }
 
 model Menu {
@@ -133,18 +144,10 @@ model Menu {
   menuName     String     @db.VarChar(200)
   description  String     @db.VarChar(500)
   isActive     Boolean    @default(false)
-  menuItems    MenuItem[]
+  menuItems    MenuItem[] // Relation - Menu can have multiple menu items
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @default(now())
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId])
-}
-
-enum ItemCategory {
-  MAIN_COURSE
-  APPETIZER
-  DESSERT
-  BEVERAGE
-  SIDE
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId]) // Relation - Menu belongs to one restaurant
 }
 
 model MenuItem {
@@ -161,7 +164,16 @@ model MenuItem {
   itemCategory    ItemCategory
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @default(now())
-  menu            Menu         @relation(fields: [menuId], references: [menuId])
+  menu            Menu         @relation(fields: [menuId], references: [menuId]) // Relation - MenuItem belongs to one menu
+}
+
+model OpeningDay {
+  id           Int        @id @default(autoincrement())
+  restaurantId Int
+  day          Day
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId]) // Relation - OpeningDay belongs to one restaurant
 }
 
 //
