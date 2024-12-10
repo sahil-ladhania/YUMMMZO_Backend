@@ -5,19 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="550d9f17-75e5-45d6-98d8-9021f1061c90" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/middlewares/errorHandeling/ErrorHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/index-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/index-browser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.prisma/client/wasm.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.prisma/client/wasm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/internalAdminControllers/users/UserController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/internalAdminControllers/users/UserController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/helpers/AuthHelpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helpers/AuthHelpers.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +108,11 @@
       <workItem from="1733217841839" duration="11894000" />
       <workItem from="1733294600329" duration="18774000" />
       <workItem from="1733381395878" duration="18955000" />
-      <workItem from="1733469156788" duration="15653000" />
+      <workItem from="1733469156788" duration="15851000" />
+      <workItem from="1733556978413" duration="8979000" />
+      <workItem from="1733729814840" duration="2420000" />
+      <workItem from="1733746615616" duration="730000" />
+      <workItem from="1733812554436" duration="4152000" />
     </task>
     <servers />
   </component>
@@ -174,6 +171,71 @@
           <url>file://$PROJECT_DIR$/src/services/vendorServices/restaurantServices/RestaurantServices.js</url>
           <line>22</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js</url>
+          <line>8</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/utils/helpers/AuthHelpers.js</url>
+          <line>4</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/services/commonServices/authServices/AuthServices.js</url>
+          <line>4</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/services/commonServices/authServices/AuthServices.js</url>
+          <line>17</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/services/commonServices/authServices/AuthServices.js</url>
+          <line>37</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/utils/helpers/AuthHelpers.js</url>
+          <line>16</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/utils/helpers/AuthHelpers.js</url>
+          <line>27</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js</url>
+          <line>37</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/services/commonServices/authServices/AuthServices.js</url>
+          <line>63</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/controllers/commonControllers/authN_authZ/AuthController.js</url>
+          <line>64</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/middlewares/authN_authZ/Authenticate.js</url>
+          <line>2</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/services/commonServices/authServices/AuthServices.js</url>
+          <line>92</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/middlewares/authN_authZ/Authorize.js</url>
+          <line>2</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

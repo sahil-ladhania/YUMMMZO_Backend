@@ -18,11 +18,15 @@ import OrderTrackingRoutes from "./routes/customerRoutes/OrderTrackingRoutes.js"
 import ScheduleOrdersRoutes from "./routes/customerRoutes/ScheduleOrdersRoutes.js";
 import UserRoutes from "./routes/internalAdminRoutes/UserRoutes.js";
 import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
+import cors from "cors";
 
 const app = express()
 const port = 3000
 
 app.use(express.json());
+app.use(cors({
+    origin: '*',
+}))
 
 console.log("Before Routes");
 app.use(AuthRoutes);

@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken';
 // Auth Helper for Hashing Password
 export const hashPassword = async(password) => {
     try{
-        // return hashed password
         const saltrounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltrounds);
         return hashedPassword;
