@@ -9,7 +9,7 @@ import {hashPassword} from "../../../utils/helpers/AuthHelpers.js";
 export const signupController = async(req , res , next) => {
     try{
         const {firstName , lastName , phoneNumber , email , password , role} = req.body;
-        if(!firstName || !lastName || !phoneNumber || !email || !password){
+        if(!firstName || !lastName || !phoneNumber || !email || !password || !role){
             return res.status(400).send({
                 message : "Please fill all required fields..."
             })
