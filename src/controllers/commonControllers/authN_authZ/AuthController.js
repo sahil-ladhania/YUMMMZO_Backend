@@ -50,7 +50,7 @@ export const loginController = async(req , res , next) => {
                 message : "Invalid Credentials..."
             })
         }
-        res.cookie("jwt" , jwt_token, {maxAge : 60000, httpOnly : true});
+        res.cookie("jwt" , jwt_token, {maxAge : 600000, httpOnly : false , path: '/', sameSite : 'None' , secure : false});
         return res.status(201).send({
             message : "User Successfully Logged In...",
             existingUser : user
