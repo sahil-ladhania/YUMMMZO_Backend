@@ -64,19 +64,26 @@ export const loginController = async(req , res , next) => {
 // Controller for Updating Password
 export const changePasswordController = async(req , res , next) => {
     try{
-        const {email , password , newPassword} = req.body;
-        if(!email || !password || !newPassword){
+        const {email , password , newPassword , confirmPassword} = req.body;
+        if(!email || !password || !newPassword || !confirmPassword){
             return res.status(400).send({
                 message : "Please fill all required fields..."
             })
         }
-        const newHashedPassword = await hashPassword(newPassword);
-        console.log(newHashedPassword);
-        const updatedUserInfo = await updatePasswordService({email , password , newHashedPassword});
-        return res.status(201).send({
-            message : "User Successfully Updated Password...",
-            updatedInfo : updatedUserInfo
-        })
+        if(newPassword === confirmPassword){
+            const newHashedPassword = await hashPassword(newPassword);
+            console.log(newHashedPassword);
+            const updatedUserInfo = await updatePasswordService({email , password , newHashedPassword});
+            return res.status(201).send({
+                message : "User Successfully Updated Password...",
+                updatedInfo : updatedUserInfo
+            })
+        }
+        else{
+            return res.status(400).send({
+                message : "New Password Doesnt Match to Confirm Password..."
+            })
+        }
     }
     catch(error){
         next(error);
