@@ -63,7 +63,6 @@ export const authenticateService = async ({email , password}) => {
 // Service for Updating the User's Password
 export const updatePasswordService = async ({email , password , newHashedPassword}) => {
     try{
-        // check if the password user is entering matches the password in the db and then allow for updation
         const user = await checkIfUserExists({email});
         if(!user){
             return null;

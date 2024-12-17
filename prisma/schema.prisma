@@ -21,16 +21,6 @@ enum UserAddressType {
   OTHER
 }
 
-enum Day {
-  MONDAY
-  TUESDAY
-  WEDNESDAY
-  THURSDAY
-  FRIDAY
-  SATURDAY
-  SUNDAY
-}
-
 enum ItemCategory {
   MAIN_COURSE
   APPETIZER
@@ -99,10 +89,18 @@ model Cuisine {
   updatedAt   DateTime     @default(now())
 }
 
+model OpeningDay {
+  openingDayId           Int        @id @default(autoincrement())
+  day          String
+  restaurants Restaurant[] @relation("RestaurantOpeningDays") // Relation - A day can belong to multiple restaurants
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
 model Restaurant {
   restaurantId     Int                @id @default(autoincrement())
   userId           Int
-  restaurantName   String             @db.VarChar(200)
+  restaurantName   String             @unique @db.VarChar(200)
   ownerName        String             @db.VarChar(200)
   ownerEmail       String             @unique @db.VarChar(100)
   ownerPhoneNumber String
@@ -118,7 +116,7 @@ model Restaurant {
   cuisines         Cuisine[]          @relation("CuisineOnRestaurant") // Relation - A restaurant can have multiple cuisines
   openingTime      String
   closingTime      String
-  openingDays      OpeningDay[] // Relation - A restaurant can be open on multiple days
+  openingDays      OpeningDay[] @relation("RestaurantOpeningDays") // Relation - A restaurant can be open on multiple days
   isPureVeg        Boolean            @default(false)
   priceForTwo      Int
   menu             Menu[] // Relation - A restaurant can have multiple menus
@@ -153,15 +151,6 @@ model MenuItem {
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @default(now())
   menu            Menu         @relation(fields: [menuId], references: [menuId]) // Relation - MenuItem belongs to one menu
-}
-
-model OpeningDay {
-  id           Int        @id @default(autoincrement())
-  restaurantId Int
-  day          Day
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId]) // Relation - OpeningDay belongs to one restaurant
 }
 
 //
