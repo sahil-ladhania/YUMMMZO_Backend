@@ -1,6 +1,5 @@
 import prisma from "../../../config/DB.js";
 
-
 export const checkIfRestaurantExist = async({restaurantName}) => {
     try{
         const ifRestaurantExist = await prisma.restaurant.findUnique({

@@ -17,6 +17,9 @@ import OrderHistoryRoutes from "./routes/customerRoutes/OrderHistoryRoutes.js";
 import OrderTrackingRoutes from "./routes/customerRoutes/OrderTrackingRoutes.js";
 import ScheduleOrdersRoutes from "./routes/customerRoutes/ScheduleOrdersRoutes.js";
 import UserRoutes from "./routes/internalAdminRoutes/UserRoutes.js";
+import CuisinesRoutes from "./routes/internalAdminRoutes/CuisinesRoutes.js";
+import CuisineFeedRoutes from "./routes/customerRoutes/CuisineFeedRoutes.js";
+import OpeningDaysRoutes from "./routes/customerRoutes/OpeningDaysRoutes.js";
 import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
 import cors from "cors";
 
@@ -32,10 +35,13 @@ app.use(cors({
 console.log("Before Routes");
 app.use(AuthRoutes);
 app.use(UserRoutes);
+app.use(CuisinesRoutes)
 app.use(RestaurantRoutes);
 app.use(MenuRoutes);
 app.use(OrderRoutes);
 app.use(DeliveryRoutes);
+app.use(CuisineFeedRoutes);
+app.use(OpeningDaysRoutes);
 app.use(RestaurantFeedRoutes);
 app.use(RestaurantFiltersRoutes);
 app.use(MenuFeedRoutes);

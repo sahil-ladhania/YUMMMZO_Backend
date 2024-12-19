@@ -1,6 +1,5 @@
 import { checkIfRestaurantExist, createRestaurantService, deleteRestaurantService, updateRestaurantService } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
 
-
 export const createRestaurant = async (req , res , next) => {
     try{
         const {userId , restaurantName , ownerName , ownerEmail , ownerPhoneNumber , buildingNumber , floorNumber , area , nearbyLandmark , city , state , postalCode , country , restaurantImage , cuisines , openingTime , closingTime , openingDays , isPureVeg , priceForTwo} = req.body;
