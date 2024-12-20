@@ -3,7 +3,28 @@ import { checkIfRestaurantExist, createRestaurantService, deleteRestaurantServic
 export const createRestaurant = async (req , res , next) => {
     try{
         const {userId , restaurantName , ownerName , ownerEmail , ownerPhoneNumber , buildingNumber , floorNumber , area , nearbyLandmark , city , state , postalCode , country , restaurantImage , cuisines , openingTime , closingTime , openingDays , isPureVeg , priceForTwo} = req.body;
-        if(!userId || !restaurantName || !ownerName || !ownerEmail || !ownerPhoneNumber || !buildingNumber || !floorNumber || !area || !nearbyLandmark || !city || !state || !postalCode || !country || !restaurantImage || !cuisines || !openingTime || !closingTime || !isPureVeg || !priceForTwo){
+        if(
+            !userId || 
+            !restaurantName || 
+            !ownerName || 
+            !ownerEmail || 
+            !ownerPhoneNumber || 
+            !buildingNumber || 
+            !floorNumber || 
+            !area || 
+            !nearbyLandmark || 
+            !city || 
+            !state || 
+            !postalCode || 
+            !country || 
+            !restaurantImage || 
+            !cuisines || 
+            !openingTime || 
+            !closingTime || 
+            !openingDays ||
+            !isPureVeg || 
+            !priceForTwo
+        ){
             return res.status(400).send({
                 message : "Please fill all required fields..."
             })
