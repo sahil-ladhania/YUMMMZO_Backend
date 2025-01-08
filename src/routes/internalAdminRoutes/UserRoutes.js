@@ -9,7 +9,16 @@ import {authenticate} from "../../middlewares/authN_authZ/Authenticate.js";
 import {authorize} from "../../middlewares/authN_authZ/Authorize.js";
 const router = express.Router();
 
-router.get('/users' , authenticate , authorize('VIEW_ALL_USERS') , getUsers);
+/* 
+    Depending on the Route User has gone through , that controller will be activated , and the flow will be like :-
+    1st step - authenticate Middleware will Run
+    2nd step - authorize Middleware will Run
+    3rd step - Controller Function will be Called
+    Note - 
+        If in the middle the flow stops , it wont run the Controller Function
+        To run the Controller Function , all the Middleware should run 
+*/ 
+router.get('/users' , authenticate , authorize('VIEW_ALL_USERS') , getUsers); // If user wants to go to /users route -> authenticate Middleware will be called -> authorize('VIEW_ALL_USERS') Middleware with the specified permission will be called -> Then getUsers Controller Function will be called
 router.get('/user/:customerId' , authenticate , authorize('VIEW_USER_DETAILS') , getUser);
 router.get('/restaurantOwners' , authenticate , authorize('VIEW_ALL_RESTAURANT_OWNERS') , getRestaurantOwners);
 router.get('/restaurantOwner/:vendorId' , authenticate , authorize('VIEW_RESTAURANT_OWNER_DETAILS') , getRestaurantOwner);

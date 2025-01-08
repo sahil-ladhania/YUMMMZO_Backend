@@ -33,8 +33,8 @@ app.use(cors({
 }))
 
 console.log("Before Routes");
-app.use(AuthRoutes);
-app.use(UserRoutes);
+app.use(AuthRoutes); // AuthN Flow Starts Here : Opens AuthRoutes File
+app.use(UserRoutes); // AuthZ Flow Starts Here : Opens UserRoutes File
 app.use(CuisinesRoutes)
 app.use(RestaurantRoutes);
 app.use(MenuRoutes);
