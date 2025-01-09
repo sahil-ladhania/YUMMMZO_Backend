@@ -104,6 +104,6 @@ export const getPermissionsByRole = async({role}) => {
         );
     }
     catch(error){
-        throw new Error('Failed to Fetch Permissions...');
+        throw new Error('Failed to Fetch Permissions...' + error.message + error.stack);
     }
 }

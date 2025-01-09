@@ -50,7 +50,7 @@ export const loginController = async(req , res , next) => {
             })
         }
         res.cookie("jwt" , jwt_token, {
-            maxAge : 600000, httpOnly : false , path: '/', sameSite : 'None' , secure : false // Now set the jwt_token into the Cookie
+            maxAge : 600000, httpOnly : false , path: '/', sameSite : 'None' , secure : false // Now set the jwt_token into the Cookie -> sameSite aur secure mai kuch issue ho skta
         }); 
         return res.status(201).send({
             message : "User Successfully Logged In...",
@@ -84,6 +84,24 @@ export const changePasswordController = async(req , res , next) => {
                 message : "New Password Doesnt Match to Confirm Password..."
             })
         }
+    }
+    catch(error){
+        next(error);
+    }
+}
+
+// Controller for Logout
+export const logoutController = async(req , res , next) => {
+    try{
+        res.clearCookie("jwt", {
+            path: "/",                
+            httpOnly: false,          
+            sameSite: "None",         
+            secure: false,            
+        });
+        return res.status(200).send({
+            message : "User Successfully Logged Out...",
+        })
     }
     catch(error){
         next(error);
