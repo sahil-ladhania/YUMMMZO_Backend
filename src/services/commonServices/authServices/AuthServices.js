@@ -4,10 +4,10 @@ import {comparePassword, generateToken} from "../../../utils/helpers/AuthHelpers
 // Service for Checking If a User Exist
 export const checkIfUserExists = async ({email}) => {
     try{
-        const ifUserExists = await prisma.user.findUnique({ // Get the user Object in ifUserExists variable -> We are calling the User Table and checking if the email that user has provided exist or not
+        const ifUserExists = await prisma.user.findUnique({ 
             where: {email}
         })
-        return ifUserExists; // Return the User Object
+        return ifUserExists; 
     }
     catch(error){
         throw new Error('Error Checking User Existence : ' + error.message + error.stack);
@@ -17,7 +17,7 @@ export const checkIfUserExists = async ({email}) => {
 // Service for Creating a New User
 export const createUserService = async ({firstName , lastName , phoneNumber , email , hashedPassword , role}) => {
     try{
-        const newUser = await prisma.user.create({ // Get the new created User in the newUser variable -> We are creating a new User and adding it in the Users Table with all the below data that we got in parameters
+        const newUser = await prisma.user.create({
             data : {
                 firstName,
                 lastName,
@@ -27,7 +27,7 @@ export const createUserService = async ({firstName , lastName , phoneNumber , em
                 role
             }
         });
-        return newUser; // Return the User Object
+        return newUser;
     }
     catch(error){
         throw new Error('Error Creating User : ' + error.message + error.stack);
@@ -37,23 +37,23 @@ export const createUserService = async ({firstName , lastName , phoneNumber , em
 // Service for Authenticating the User
 export const authenticateService = async ({email , password}) => {
     try{
-        const user = await prisma.user.findUnique({ // Get the user Object in user variable -> We are calling the User Table and checking if email and password that user has provided matches or not
+        const user = await prisma.user.findUnique({ 
             where : {email}
         });
         if(!user){
-            return null; // So if the user dont exist , simply return null
+            return null; 
         }
-        const isPasswordValid = await comparePassword(password , user.password); // Here we wil get true or false : true if saved password matches with what the user has entered -> We will now go inside comparePassword Function
+        const isPasswordValid = await comparePassword(password , user.password);
         if(!isPasswordValid){
-            return null; // So if it doesnt match , simply return null
+            return null;
         }
-        const jwt_token = await generateToken(user.userId , user.firstName , user.email , user.role); // Here we will generate the jwt token and get the token in jwt_token variable -> We will now go inside generateToken Function
+        const jwt_token = await generateToken(user.userId , user.firstName , user.email , user.role); 
         console.log(jwt_token); 
         const User = {
             user : user,
             jwt_token : jwt_token
         }
-        return User; // Now we just return an Object that contains user Object and the jwt_token
+        return User;
     }
     catch(error){
         throw new Error('Error Authenticating User...' + error.message + error.stack);
@@ -63,15 +63,15 @@ export const authenticateService = async ({email , password}) => {
 // Service for Updating the User's Password
 export const updatePasswordService = async ({email , password , newHashedPassword}) => {
     try{
-        const user = await checkIfUserExists({email}); // We will get the user object in the user variable and just check if the user with the specified email exist or not -> We will now go inside checkIfUserExists Service
+        const user = await checkIfUserExists({email}); 
         if(!user){
-            return null; // So if the user dont exist , simply return null
+            return null; 
         }
-        const isPasswordValid = await comparePassword(password , user.password); // Here we wil get true or false : true if saved password matches with what the user has entered -> We will now go inside comparePassword Function
+        const isPasswordValid = await comparePassword(password , user.password); 
         if(!isPasswordValid){
             throw new Error('Current Password is Incorrect...');
         }
-        const User = await prisma.user.update({ // We wil get the updated user object in the User variable and just update the user in user table
+        const User = await prisma.user.update({ 
             where : {email},
             data : {
                 password : newHashedPassword
@@ -81,7 +81,7 @@ export const updatePasswordService = async ({email , password , newHashedPasswor
             message : "Password Updated Successfully...",
             user : User
         }
-        return updatedUser; // Now we will just return an Object that contains user Object and the message
+        return updatedUser;
     }
     catch(error){
         throw new Error('Error Updating User Password...' + error.message + error.stack);
@@ -91,7 +91,7 @@ export const updatePasswordService = async ({email , password , newHashedPasswor
 // Service for Getting the Permissions for a Specific Role
 export const getPermissionsByRole = async({role}) => {
     try{
-        const permissions = await prisma.rolePermission.findMany({ // We will get the permissions which is an  array or objects in the permissions variable -> We will call the rolePermission table and find all the permissions that is mapped to specified role
+        const permissions = await prisma.rolePermission.findMany({ 
             where: {
                 role : role
             },
@@ -100,7 +100,7 @@ export const getPermissionsByRole = async({role}) => {
             }
         })
         return permissions.map((rp) => 
-            rp.permission.name // So here we are just returning the array of permissions
+            rp.permission.name 
         );
     }
     catch(error){

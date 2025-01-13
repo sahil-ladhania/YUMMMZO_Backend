@@ -14,10 +14,10 @@ export const signupController = async(req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const hashedPassword = await hashPassword(password); // Hashing the Password(We will get the Hashed Password from hashPassword Function) -> We will now go inside hashPassword Function
-        const ifUserExist = await checkIfUserExists({email}); // Here we will get the User Object for the specific email , if the User exists -> We will now go inside checkIfUserExists Service
+        const hashedPassword = await hashPassword(password); 
+        const ifUserExist = await checkIfUserExists({email});
         if(!ifUserExist){
-            const newUser = await createUserService({firstName , lastName , phoneNumber , email , hashedPassword , role}); // Here we will get a new User Object if there is no such User with the given email in the DB -> We will now go inside createUserService Service
+            const newUser = await createUserService({firstName , lastName , phoneNumber , email , hashedPassword , role});
             return res.status(201).send({
                 message : "User Successfully Signed Up...",
                 user : newUser
@@ -43,15 +43,19 @@ export const loginController = async(req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const {user , jwt_token} = await authenticateService({email , password}); // Here we will get the user and jwt_token form the authenticateService Function as it will be returning an Object and that is why we are destructuring it in this way -> We will now go inside authenticateService Service
+        const {user , jwt_token} = await authenticateService({email , password}); 
         if(!user){
             return res.status(400).send({
                 message : "Invalid Credentials..."
             })
         }
         res.cookie("jwt" , jwt_token, {
-            maxAge : 600000, httpOnly : false , path: '/', sameSite : 'None' , secure : false // Now set the jwt_token into the Cookie -> sameSite aur secure mai kuch issue ho skta
-        }); 
+            maxAge : 3600000, 
+            httpOnly : true , 
+            path: '/', 
+            sameSite : 'Lax' , 
+            secure : false
+        });
         return res.status(201).send({
             message : "User Successfully Logged In...",
             existingUser : user
@@ -72,8 +76,8 @@ export const changePasswordController = async(req , res , next) => {
             })
         }
         if(newPassword === confirmPassword){
-            const newHashedPassword = await hashPassword(newPassword); // We will get the Hashed Password for the new password -> We will now go inside hashPassword Function
-            const updatedUserInfo = await updatePasswordService({email , password , newHashedPassword}); // We will get the updated user Object in the updatedUserInfo variable -> We will now go inside updatePasswordService Serivce
+            const newHashedPassword = await hashPassword(newPassword); 
+            const updatedUserInfo = await updatePasswordService({email , password , newHashedPassword});
             return res.status(201).send({
                 message : "User Successfully Updated Password...",
                 updatedInfo : updatedUserInfo
