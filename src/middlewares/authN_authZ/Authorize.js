@@ -1,5 +1,6 @@
 import {getPermissionsByRole} from "../../services/commonServices/authServices/AuthServices.js";
 
+// Middleware for Authorizing a User
 export const authorize = (requiredPermission) => {
     return async (req, res, next) => {
         try{

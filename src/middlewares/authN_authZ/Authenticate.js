@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 
+// Middleware for Authenticating a User
 export const authenticate = async (req, res, next) => {
     try {
         const token = req.headers.cookie; 
