@@ -20,6 +20,7 @@ import UserRoutes from "./routes/internalAdminRoutes/UserRoutes.js";
 import CuisinesRoutes from "./routes/internalAdminRoutes/CuisinesRoutes.js";
 import CuisineFeedRoutes from "./routes/customerRoutes/CuisineFeedRoutes.js";
 import OpeningDaysRoutes from "./routes/customerRoutes/OpeningDaysRoutes.js";
+import TopBrandsFeedRoutes from "./routes/customerRoutes/TopBrandsFeedRoutes.js"
 import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
 import cors from "cors";
 
@@ -41,7 +42,8 @@ app.use(MenuRoutes);
 app.use(OrderRoutes);
 app.use(DeliveryRoutes);
 app.use(OpeningDaysRoutes);
-app.use(CuisineFeedRoutes); // Flow yaha se start hoga -> Will jump to CuisineFeedRoutes File
+app.use(CuisineFeedRoutes);
+app.use(TopBrandsFeedRoutes);
 app.use(RestaurantFeedRoutes);
 app.use(RestaurantFiltersRoutes);
 app.use(MenuFeedRoutes);
