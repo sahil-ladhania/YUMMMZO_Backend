@@ -8,10 +8,10 @@ export const createCuisine = async(req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifCuisineExist = await checkIfCuisineExist({name}); // Checking if Cuisine already exist or not -> Will get a Cusine Object with data in it or null
+        const ifCuisineExist = await checkIfCuisineExist({name}); 
         if(!ifCuisineExist){
-            const createdCuisine = await createCuisineService({name , description , image}); // Create a new Cuisine if the Cuisine dont exist already -> Will get a Cuisine Object with the data in it
-            return res.status(201).send({ // Return the response with message and new created Cuisine
+            const createdCuisine = await createCuisineService({name , description , image});
+            return res.status(201).send({ 
                 message : "Cuisine Successfully Created...",
                 cuisine : createdCuisine
             })

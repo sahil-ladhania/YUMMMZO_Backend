@@ -35,13 +35,13 @@ app.use(cors({
 console.log("Before Routes");
 app.use(AuthRoutes); 
 app.use(UserRoutes); 
-app.use(CuisinesRoutes); // Flow yaha se start hoga for Cuisine related Routes -> Will Jump to CuisineRoutes File
-app.use(RestaurantRoutes); // Flow yaha se start hoga for Restaurant related Routes -> Will Jump to RestaurantRoutes File
+app.use(CuisinesRoutes); 
+app.use(RestaurantRoutes);
 app.use(MenuRoutes);
 app.use(OrderRoutes);
 app.use(DeliveryRoutes);
-app.use(CuisineFeedRoutes);
 app.use(OpeningDaysRoutes);
+app.use(CuisineFeedRoutes); // Flow yaha se start hoga -> Will jump to CuisineFeedRoutes File
 app.use(RestaurantFeedRoutes);
 app.use(RestaurantFiltersRoutes);
 app.use(MenuFeedRoutes);
