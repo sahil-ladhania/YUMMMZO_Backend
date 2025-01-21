@@ -3,24 +3,24 @@ import { searchAndSortRestaurantsService } from "../../../services/customerServi
 // Controller to Search and Sort Restaurants
 export const searchAndSortRestaurants = async (req , res , next) => {
     try{
-        const { search , veg , priceRange , sort } = req.query; // Getting query values
-        const [minPrice , maxPrice] = priceRange ? priceRange.split('-') : [null , null]; // Price Range mai se Min Price and Max Price Nikalo
-        let sortingCriteria = {}; // Yaha pe hm sortingCriteria object banate hain, jo sare filters aur sorting options ko store karega jo hum pass karenge service function ko
+        const { search , veg , priceRange , sort } = req.query;
+        const [minPrice , maxPrice] = priceRange ? priceRange.split('-') : [null , null];
+        let sortingCriteria = {}; 
         if(search){
-            sortingCriteria.search = search; // Agar search parameter diya gaya hai, to usse sortingCriteria object me store karenge
+            sortingCriteria.search = search; 
         }
         if(veg){
-            sortingCriteria.veg = veg; // Agar veg parameter hai (jo pure veg restaurants ko indicate karta hai), to usse bhi sortingCriteria me add karenge
+            sortingCriteria.veg = veg;
         }
         if(minPrice && maxPrice){
-            sortingCriteria.priceRange = { minPrice , maxPrice }; // Agar minPrice aur maxPrice available hain, to unko sortingCriteria.priceRange me store karenge
+            sortingCriteria.priceRange = { minPrice , maxPrice }; 
         }
         if(sort){
-            sortingCriteria.sort = sort; // Agar sort parameter diya gaya hai (jaise “Cost:Low-High” ya “Cost:High-Low”), to usse sortingCriteria me store karenge
+            sortingCriteria.sort = sort; 
         }
-        const filteredRestaurants = await searchAndSortRestaurantsService(sortingCriteria); // Hum searchAndSortRestaurantsService function ko sortingCriteria ke saath call karte hai and Isme jo bhi filters aur sorting parameters hain, wo pass kar diye jaate hain
+        const filteredRestaurants = await searchAndSortRestaurantsService(sortingCriteria); 
         console.log(filteredRestaurants);
-        return res.status(200).send({  // Sending the Response to user with message and filteredRestaurants
+        return res.status(200).send({  
             message : "Filtered Restaurants Successfully Retrieved...",
             filteredRestaurants : filteredRestaurants
         })
