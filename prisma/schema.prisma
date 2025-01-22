@@ -146,13 +146,12 @@ model MenuItem {
   itemId          Int          @id @default(autoincrement())
   menuId          Int
   itemName        String       @db.VarChar(200)
-  itemDescription String       @db.VarChar(500)
+  itemPrice       Int          @default(0)
   quantity        Int          @default(0)
-  isVeg           Boolean      @default(false)
+  itemDescription String       @db.VarChar(500)
+  isPureVeg       Boolean      @default(false)
   isBestSeller    Boolean      @default(false)
   itemImage       String
-  totalReviews    Int          @default(0)
-  ratings         Float        @default(0)
   itemCategory    ItemCategory
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @default(now())
