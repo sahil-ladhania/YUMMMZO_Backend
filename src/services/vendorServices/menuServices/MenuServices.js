@@ -101,6 +101,20 @@ export const deleteMenuService = async ({ menuId }) => {
     }
 };
 
+// Service For Getting a Restaurant ID for a User
+export const getRestaurantIdService = async ({ userId }) => {
+    try{
+        const restaurantId = await prisma.restaurant.findFirst({
+            where : { userId }
+        })
+        return restaurantId;
+    }
+    catch(error){
+        throw new Error('Error Getting a Restaurant Id For a User : ' + error.message + error.stack);
+    }
+};
+
+
 // Service For Updating a Specific Menu with MenuItems
 export const updateMenuService = async () => {
     

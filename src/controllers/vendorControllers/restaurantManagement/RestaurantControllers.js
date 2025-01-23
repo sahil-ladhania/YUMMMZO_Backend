@@ -19,7 +19,7 @@ export const createRestaurant = async (req , res , next) => {
             !postalCode || 
             !country || 
             !restaurantImage || 
-            !isPureVeg || 
+            isPureVeg === undefined || 
             !priceForTwo ||
             cuisines.length < 1|| 
             !openingTime || 
