@@ -1,52 +1,99 @@
+import prisma from "../../../config/DB.js";
+import { checkMenuExistance, createAMenuService, createMenuItemsService, deleteMenuService, getAllMenuItemsService, getAllMenusService } from "../../../services/vendorServices/menuServices/MenuServices.js";
 
 
 // Controller For Creating a Menu with MenuItems
 export const createMenu = async (req , res , next) => {
-    /*
-        Logic :
-        1. Get the data from body.
-        2. Check if all the feilds are filled.
-        3. Check if the Menu user wants to create exits or not -> Call a Service to Check -> Will return a MenuObject or null.
-        4. If returns a Menu Object -> Send response that you cant create a Menu with the same name and the menu already exist.
-        5. Else start creating a Menu :
-            5.1. First collect all Menu related data like - menuName , description , isActive.
-            5.2. Start the Transaction.
-            5.3. Save the Menu with these details in DB -> Call a Service to Create record for Menu in Menu Table -> Will return a new MenuObject or null.
-            5.4. Get the menuId that is being created.
-            5.5. Related all the MenuItems with this menuId and save it in DB -> Call a Service to Create multiple records in MenuItems Table -> Will return an array of objects or null.
-            5.6. Commit the Transaction after success.
-            5.7. Send a Response to User with message and Menu Details.
-    */
-   console.log("Hi From Create Menu...");
+    try{
+        console.log("Hi From Create Menu...");
+        const { menuName , description , isActive , menuItems } = req.body;
+        const { restaurantId } = req.params;
+        if(!menuName || !description || !isActive || menuItems.length < 1){
+            return res.status(400).send({
+                message : "Please fill all required fields..."
+            })
+        }
+        const ifMenuExist = await checkMenuExistance({ menuName , restaurantId });
+        if(!ifMenuExist){
+            const createdMenuData = await prisma.$transaction(async (prisma) => {
+                const createdMenu = await createAMenuService({ menuName , description , isActive , restaurantId });
+                const currentMenuId = createdMenu.menuId;
+                const createdMenuItems = await createMenuItemsService({ currentMenuId , menuItems });
+                return {createdMenu , createdMenuItems};
+            })
+            return res.status(201).send({
+                message: "Menu Created Successfully...",
+                menu: createdMenuData.createdMenu,
+                menuItems: createdMenuData.createdMenuItems,
+            });
+        }
+        else{
+            return res.status(400).send({
+                message : "Menu with this Name Already Exist..."
+            })
+        }
+    }
+    catch(error){
+        next(error);
+    }
 };
 
 
 // Controller For Getting all Menus
 export const getAllMenus = async (req , res , next) => {
-    
+    try{
+        const { restaurantId } = req.params;
+        const restaurantId_INT = parseInt(restaurantId);
+        const restaurantMenus = await getAllMenusService({ restaurantId: restaurantId_INT });
+        return res.status(200).send({
+            message: "Restaurant Menus Retrieved Successfully...",
+            restaurantMenus : restaurantMenus
+        });
+    }
+    catch(error){
+        next(error);
+    }
 };
 
-// Controller For Getting a Specific Menu
-export const getAMenu = async (req , res , next) => {
-    
-};
 
 // Controller For Getting all MenuItems
 export const getAllMenuItems = async (req , res , next) => {
-    
-};
-
-// Controller For Getting a Specific MenuItem
-export const getAMenuItem = async (req , res , next) => {
-    
-};
-
-// Controller For Updating a Specific Menu with MenuItems
-export const updateMenu = async (req , res , next) => {
-    
+    try{
+        const { menuId } = req.params;
+        const menuId_INT = parseInt(menuId);
+        const menuItems = await getAllMenuItemsService({ menuId: menuId_INT });
+        return res.status(200).send({
+            message: "MenuItems Retrieved Successfully...",
+            menuItems : menuItems
+        });
+    }
+    catch(error){
+        next(error);
+    }
 };
 
 // Controller For Deleting a Specific Menu with MenuItems
 export const deleteMenu = async (req , res , next) => {
-    
+    try{
+        const { menuId } = req.params;
+        const menuId_INT = parseInt(menuId);
+        const deletedMenu = await deleteMenuService({ menuId: menuId_INT });
+        return res.status(200).send({
+            message: "Menu Deleted Successfully...",
+            menu : deletedMenu
+        });
+    }
+    catch(error){
+        next(error);
+    }
+};  
+
+// Controller For Updating a Specific Menu with MenuItems
+export const updateMenu = async (req , res , next) => {
+    try{
+
+    }
+    catch(error){
+        next(error);
+    }
 };

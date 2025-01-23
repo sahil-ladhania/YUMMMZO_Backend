@@ -19,12 +19,12 @@ export const createRestaurant = async (req , res , next) => {
             !postalCode || 
             !country || 
             !restaurantImage || 
-            isPureVeg === undefined || 
+            !isPureVeg || 
             !priceForTwo ||
-            !cuisines.length || 
+            cuisines.length < 1|| 
             !openingTime || 
             !closingTime || 
-            !openingDays.length
+            openingDays.length < 1
         ){
             return res.status(400).send({
                 message : "Please fill all required fields..."

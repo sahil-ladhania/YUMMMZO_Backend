@@ -140,6 +140,7 @@ model Menu {
   restaurant   Restaurant @relation(fields: [restaurantId], references: [restaurantId]) // Relation - Menu belongs to one restaurant
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @default(now())
+  @@unique([restaurantId , menuName])
 }
 
 model MenuItem {
@@ -155,7 +156,7 @@ model MenuItem {
   itemCategory    ItemCategory
   createdAt       DateTime     @default(now())
   updatedAt       DateTime     @default(now())
-  menu            Menu         @relation(fields: [menuId], references: [menuId]) // Relation - MenuItem belongs to one menu
+  menu            Menu         @relation(fields: [menuId], references: [menuId], onDelete: Cascade) // Relation - MenuItem belongs to one menu
 }
 
 //
