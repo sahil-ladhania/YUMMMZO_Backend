@@ -38,7 +38,7 @@ app.use(AuthRoutes);
 app.use(UserRoutes); 
 app.use(CuisinesRoutes); 
 app.use(RestaurantRoutes);
-app.use(MenuRoutes); // Flow will start from here -> Will Jump to MenuRoutes File
+app.use(MenuRoutes);
 app.use(OrderRoutes);
 app.use(DeliveryRoutes);
 app.use(OpeningDaysRoutes);
@@ -47,7 +47,7 @@ app.use(TopBrandsFeedRoutes);
 app.use(RestaurantFeedRoutes);
 app.use(RestaurantFiltersRoutes); 
 app.use(MenuFeedRoutes);
-app.use(MenuFiltersRoutes);
+app.use(MenuFiltersRoutes);  // Flow will start from here -> Will Jump to MenuRoutes File
 app.use(CartRoutes);
 app.use(CheckoutRoutes);
 app.use(OrdersAndPaymentRoutes);

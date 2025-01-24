@@ -19,7 +19,6 @@ export const searchAndSortRestaurants = async (req , res , next) => {
             sortingCriteria.sort = sort; 
         }
         const filteredRestaurants = await searchAndSortRestaurantsService(sortingCriteria); 
-        console.log(filteredRestaurants);
         return res.status(200).send({  
             message : "Filtered Restaurants Successfully Retrieved...",
             filteredRestaurants : filteredRestaurants
