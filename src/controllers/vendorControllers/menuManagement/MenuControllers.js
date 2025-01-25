@@ -1,5 +1,5 @@
 import prisma from "../../../config/DB.js";
-import { checkMenuExistance, createAMenuService, createMenuItemsService, deleteMenuService, getAllMenuItemsService, getAllMenusService, getRestaurantIdService } from "../../../services/vendorServices/menuServices/MenuServices.js";
+import { checkMenuExistance, createAMenuService, createMenuItemsService, deleteMenuService, getAllMenuItemsForARestaurantService, getAllMenuItemsService, getAllMenusService, getRestaurantIdService } from "../../../services/vendorServices/menuServices/MenuServices.js";
 
 
 // Controller For Creating a Menu with MenuItems
@@ -65,6 +65,22 @@ export const getAllMenuItems = async (req , res , next) => {
         return res.status(200).send({
             message: "MenuItems Retrieved Successfully...",
             menuItems : menuItems
+        });
+    }
+    catch(error){
+        next(error);
+    }
+};
+
+// Controller For Getting all MenuItems For a Restaurant
+export const getAllMenuItemsForARestaurant = async (req , res , next) => {
+    try{
+        const { restaurantId } = req.params;
+        const restaurantId_INT = parseInt(restaurantId);
+        const restaurantMenuItems = await getAllMenuItemsForARestaurantService({ restaurantId: restaurantId_INT });
+        return res.status(200).send({
+            message: "MenuItems For A Restaurant Retrieved Successfully...",
+            restaurant_menuItems : restaurantMenuItems
         });
     }
     catch(error){

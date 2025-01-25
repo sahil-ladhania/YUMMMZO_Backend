@@ -88,6 +88,22 @@ export const getAllMenuItemsService = async ({ menuId }) => {
     }
 };
 
+// Service For Getting all MenuItems
+export const getAllMenuItemsForARestaurantService = async ({ restaurantId }) => {
+    try {
+        const menuItems = await prisma.menuItem.findMany({
+            where: {
+                menu: {
+                    restaurantId: restaurantId,
+                },
+            },
+        });
+        return menuItems;
+    } catch (error) {
+        throw new Error('Error retrieving menu items: ' + error.message);
+    }
+};
+
 // Service For Deleting a Specific Menu with MenuItems
 export const deleteMenuService = async ({ menuId }) => {
     try{
