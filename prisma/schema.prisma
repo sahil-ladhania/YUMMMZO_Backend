@@ -159,17 +159,7 @@ model MenuItem {
   menu            Menu         @relation(fields: [menuId], references: [menuId], onDelete: Cascade) // Relation - MenuItem belongs to one menu
 }
 
-//
-// model Cart {
-//   cartId       Int        @id @default(autoincrement())
-//   userId       Int
-//   restaurantId Int
-//   items        MenuItem[] // add quantity
-//   totalPrice   Int        @default(0)
-//   createdAt    DateTime   @default(now())
-//   updatedAt    DateTime   @default(now())
-// }
-//
+
 // model OrderedItem {
 //   orderItemId  Int      @id @default(autoincrement())
 //   orderId      Int

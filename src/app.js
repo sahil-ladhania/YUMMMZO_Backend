@@ -1,5 +1,6 @@
 import express from 'express'
-import AuthRoutes from './routes/commonRoutes/AuthRoutes.js'
+import AuthRoutes from './routes/commonRoutes/AuthRoutes.js';
+import AddressRoutes from "./routes/customerRoutes/AddressRoutes.js";
 import RestaurantRoutes from "./routes/vendorRoutes/RestaurantRoutes.js";
 import MenuRoutes from "./routes/vendorRoutes/MenuRoutes.js";
 import OrderRoutes from "./routes/vendorRoutes/OrderRoutes.js";
@@ -36,6 +37,7 @@ app.use(cors({
 console.log("Before Routes");
 app.use(AuthRoutes); 
 app.use(UserRoutes); 
+app.use(AddressRoutes);
 app.use(CuisinesRoutes); 
 app.use(RestaurantRoutes);
 app.use(MenuRoutes);
@@ -47,7 +49,7 @@ app.use(TopBrandsFeedRoutes);
 app.use(RestaurantFeedRoutes);
 app.use(RestaurantFiltersRoutes); 
 app.use(MenuFeedRoutes);
-app.use(MenuFiltersRoutes);  // Flow will start from here -> Will Jump to MenuRoutes File
+app.use(MenuFiltersRoutes);  
 app.use(CartRoutes);
 app.use(CheckoutRoutes);
 app.use(OrdersAndPaymentRoutes);
