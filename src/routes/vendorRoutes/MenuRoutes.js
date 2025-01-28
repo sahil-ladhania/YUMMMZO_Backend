@@ -8,7 +8,7 @@ const router = express.Router();
 // router.put('/restaurants/:restaurantId/menu/:itemId' , authenticate , authorize('UPDATE_MENU_ITEM'));
 // router.delete('/restaurants/:restaurantId/menu/:itemId' , authenticate , authorize('DELETE_MENU_ITEM'));
 
-router.post('/restaurants/:restaurantId/menu' , createMenu); // If User hits this endpoint -> createMenu Contoller will run -> Wil Jump to createMenu Controller
+router.post('/restaurants/:restaurantId/menu' , createMenu);
 router.get('/restaurants/:restaurantId/menus' , getAllMenus);
 router.get('/restaurants/menu/:menuId/menuItems' , getAllMenuItems); 
 router.get('/restaurants/:restaurantId/menu/menuItems' , getAllMenuItemsForARestaurant); 
