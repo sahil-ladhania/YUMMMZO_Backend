@@ -1,5 +1,20 @@
 import prisma from "../../../config/DB.js";
 
+// Service to Check if the Order Exist
+export const checkingOrderExistence = async({ orderId }) => {
+    try {
+        const ifOrderExist = await prisma.order.findUnique({
+            where : {
+                orderId : orderId
+            }
+        })
+        return ifOrderExist;
+    }
+    catch(error){
+        throw new Error('Error Checking an Order Existence : ' + error.message + error.stack);        
+    }
+}
+
 // Service to Place an Order
 export const placeOrderService = async ({ userId , restaurantId , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress }) => {
     try {
