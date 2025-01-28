@@ -181,6 +181,8 @@ model Order {
   totalPrice    Int            // Total price of the order
   orderStatus   OrderStatus    @default(PENDING)
   deliveryTime  DateTime?      // Estimated delivery time (if accepted)
+  userAddress       String     @default("") // User address (as a simple string for now)
+  restaurantAddress String     @default("")// Restaurant address (as a simple string for now)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @default(now()) @updatedAt
   user          User           @relation(fields: [userId], references: [userId]) // The customer who placed the order
@@ -195,7 +197,7 @@ model OrderItem {
   quantity    Int       @default(1) // Quantity of the item
   itemPrice   Int       // Price of the item (copied from menu at the time of order)
   totalPrice  Int       // Calculated as quantity * itemPrice
-  order       Order     @relation(fields: [orderId], references: [orderId]) // Relation - Item belongs to an order
+  order       Order     @relation(fields: [orderId], references: [orderId], onDelete: Cascade) // Relation - Item belongs to an order
   menuItem    MenuItem  @relation(fields: [menuItemId], references: [itemId]) // Relation - Item references a menu item
 }
 

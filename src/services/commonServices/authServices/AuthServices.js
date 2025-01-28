@@ -14,6 +14,18 @@ export const checkIfUserExists = async ({email}) => {
     }
 }
 
+export const checkIfUserExistsById = async ({userId}) => {
+    try{
+        const ifUserExists = await prisma.user.findUnique({ 
+            where: {userId}
+        })
+        return ifUserExists; 
+    }
+    catch(error){
+        throw new Error('Error Checking User Existence : ' + error.message + error.stack);
+    }
+}
+
 // Service for Creating a New User
 export const createUserService = async ({firstName , lastName , phoneNumber , email , hashedPassword , role}) => {
     try{
