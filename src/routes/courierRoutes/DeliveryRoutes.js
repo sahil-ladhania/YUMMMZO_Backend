@@ -1,22 +1,17 @@
 import express from 'express';
 import {authenticate} from "../../middlewares/authN_authZ/Authenticate.js";
 import {authorize} from "../../middlewares/authN_authZ/Authorize.js";
+import { assignDeliveryPartner, getActiveDeliveryDetails, getAllDeliveriesDoneByAPartner, updateOrderStatusToDelivered, updateOrderStatusToOnTheWay } from '../../controllers/courierControllers/deliveryManagement/DeliveryControllers.js';
 const router  = express.Router();
 
-router.get('/delivery/orders', authenticate , authorize('VIEW_ACTIVE_ORDERS') , (req, res) => {
-    res.send('Check Orders');
-})
-router.put('/delivery/orders/:orderId/accept', authenticate , authorize('ACCEPT_ACTIVE_ORDER') , (req, res) => {
-    res.send('Accept Orders');
-})
-router.put('/delivery/orders/:orderId/reject', authenticate , authorize('REJECT_ACTIVE_ORDER') , (req, res) => {
-    res.send('Reject Orders');
-})
-router.put('/delivery/orders/:orderId/status', authenticate , authorize('UPDATE_ORDER_STATUS_COURIER') , (req, res) => {
-    res.send('Update Order Status');
-})
-router.get('/delivery/history', authenticate , authorize('VIEW_DELIVERY_HISTORY') , (req, res) => {
-    res.send('Check Delivery History');
-})
+// router.get('/delivery/orders', authenticate , authorize('VIEW_ACTIVE_ORDERS'))
+// router.put('/delivery/orders/:orderId/status', authenticate , authorize('UPDATE_ORDER_STATUS_COURIER'))
+// router.get('/delivery/history', authenticate , authorize('VIEW_DELIVERY_HISTORY'))
+
+router.put('/partner/:restaurantId/assign-delivery-partner/orders/:orderId', assignDeliveryPartner);
+router.put('/partner/:partnerId/:restaurantId/order-on-the-way/orders/:orderId', updateOrderStatusToOnTheWay);
+router.put('/partner/:partnerId/:restaurantId/order-delivered/orders/:orderId', updateOrderStatusToDelivered);
+router.get('/partner/:partnerId/get-active-delivery/orders/:orderId', getActiveDeliveryDetails);
+router.get('/partner/:partnerId/get-all-deliveries', getAllDeliveriesDoneByAPartner);
 
 export default router ;
