@@ -11,11 +11,26 @@ export const getAllRestaurantsService = async () => {
     }
 };
 
-// Service for Getting A Restaurants
+// Service for Getting A Restaurant
 export const getARestaurantService = async ({restaurantId}) => {
     try{    
         const restaurant = await prisma.restaurant.findUnique({
             where : {restaurantId}
+        });
+        return restaurant;
+    }  
+    catch(error){
+        throw new Error('Error Getting Restaurants : ' + error.message);
+    }
+};
+
+// Service for Getting A Restaurant By UserId
+export const getARestaurantByUserIdService = async ({userId}) => {
+    try{    
+        const restaurant = await prisma.restaurant.findMany({
+            where : {
+                userId : userId
+            }
         });
         return restaurant;
     }  

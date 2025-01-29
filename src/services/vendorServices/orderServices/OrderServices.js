@@ -15,7 +15,7 @@ export const getAllActiveOrdersForARestaurantService = async ({ restaurantId }) 
                         }
                     }
                 }
-            }
+            },
         })
         const orders = restaurantActiveOrders.length > 0 ? restaurantActiveOrders[0].orders : [];
         return orders;
