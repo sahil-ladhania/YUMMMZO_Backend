@@ -88,7 +88,10 @@ export const getActiveDeliveryDetailsService = async({partnerId , orderId}) => {
         const getActiveDeliveryDetail = await prisma.order.findMany({
             where : {
                 deliveryPartnerId : partnerId
-            }
+            },
+            include: {
+                orderItems : true
+            },
         })
         return getActiveDeliveryDetail;
     }
@@ -107,6 +110,22 @@ export const getAllDeliveriesDoneByAPartnerService = async({partnerId}) => {
             }
         });
         return getAllDeliveries;
+    }
+    catch (error){
+        throw new Error('Error Getting All Deliveries For a Partner : ' + error.message + error.stack);
+    }
+}
+
+// Service For Getting OrderId For Current Delivery
+export const getOrderDetailsOfCurrentDeliveryForAPartnerService = async({partnerId}) => {
+    try {
+        const getOrderDetails = await prisma.order.findMany({
+            where : {
+                deliveryPartnerId : partnerId,
+                orderStatus : "OUT_FOR_DELIVERY"
+            }
+        })
+        return getOrderDetails;
     }
     catch (error){
         throw new Error('Error Getting All Deliveries For a Partner : ' + error.message + error.stack);

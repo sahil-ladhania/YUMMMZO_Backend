@@ -1,5 +1,5 @@
 import { checkIfUserExistsById } from "../../../services/commonServices/authServices/AuthServices.js";
-import { assignDeliveryPartnerService, getActiveDeliveryDetailsService, getAllDeliveriesDoneByAPartnerService, updateOrderStatusToDeliveredService, updateOrderStatusToOnTheWayService } from "../../../services/courierServices/deliveryServices/DeliveryServices.js";
+import { assignDeliveryPartnerService, getActiveDeliveryDetailsService, getAllDeliveriesDoneByAPartnerService, getOrderDetailsOfCurrentDeliveryForAPartnerService, updateOrderStatusToDeliveredService, updateOrderStatusToOnTheWayService } from "../../../services/courierServices/deliveryServices/DeliveryServices.js";
 import { checkingOrderExistence } from "../../../services/customerServices/ordersAndPaymentsServices/OrdersAndPaymentsServices.js";
 import { checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
 
@@ -182,6 +182,28 @@ export const getAllDeliveriesDoneByAPartner = async (req , res , next) => {
         return res.status(200).send({
             message: "Got All Deliveries Done by a Partner...",
             allDeliveriesDetails: getAllDeliveries
+        });
+    }
+    catch (error){
+        next(error);
+    }
+};
+
+// Controller For Getting OrderId For Current Delivery
+export const getOrderDetailsOfCurrentDeliveryForAPartner = async (req , res , next) => {
+    try {
+        const {partnerId} = req.params;
+        const partnerId_INT = parseInt(partnerId);  
+        const ifPartnerExist = await checkIfUserExistsById({userId: partnerId_INT});
+        if(!ifPartnerExist){
+            return res.status(400).send({
+                message: "Partner Doesn't Exist..."
+            });
+        }
+        const getOrderDetails = await getOrderDetailsOfCurrentDeliveryForAPartnerService({partnerId: partnerId_INT});
+        return res.status(200).send({
+            message: "Got Order Details For Active Delivery...",
+            orderDetails: getOrderDetails
         });
     }
     catch (error){
