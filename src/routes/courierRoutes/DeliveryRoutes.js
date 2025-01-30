@@ -8,7 +8,7 @@ const router  = express.Router();
 // router.put('/delivery/orders/:orderId/status', authenticate , authorize('UPDATE_ORDER_STATUS_COURIER'))
 // router.get('/delivery/history', authenticate , authorize('VIEW_DELIVERY_HISTORY'))
 
-router.put('/partner/:restaurantId/assign-delivery-partner/orders/:orderId', assignDeliveryPartner);
+router.put('/user/:userId/partner/:restaurantId/assign-delivery-partner/orders/:orderId', assignDeliveryPartner);
 router.put('/partner/:partnerId/:restaurantId/order-on-the-way/orders/:orderId', updateOrderStatusToOnTheWay);
 router.put('/partner/:partnerId/:restaurantId/order-delivered/orders/:orderId', updateOrderStatusToDelivered);
 router.get('/partner/:partnerId/get-active-delivery/orders/:orderId', getActiveDeliveryDetails);
