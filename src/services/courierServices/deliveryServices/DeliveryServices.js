@@ -87,7 +87,8 @@ export const getActiveDeliveryDetailsService = async({partnerId , orderId}) => {
     try {
         const getActiveDeliveryDetail = await prisma.order.findMany({
             where : {
-                deliveryPartnerId : partnerId
+                deliveryPartnerId : partnerId,
+                orderId : orderId
             },
             include: {
                 orderItems : true
