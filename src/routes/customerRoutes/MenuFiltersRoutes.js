@@ -5,6 +5,6 @@ import { searchAndSortMenuItems } from '../../controllers/customerControllers/me
 const router = express.Router();
 
 // router.get('/restaurants/:restaurantId/menu/filter', authenticate , authorize('FILTER_MENU_ITEMS'));
-router.get('/restaurants/:restaurantId/menu/filter' , searchAndSortMenuItems);
+router.get('/restaurants/:restaurantId/menu/filter' , searchAndSortMenuItems); // If User tries to search and sort menuItems -> searchAndSortMenuItems will start executing.
 
 export default router;

@@ -4,7 +4,7 @@ import prisma from "../../../config/DB.js";
 // Service For Checking if a Menu Exist
 export const checkMenuExistance = async ({ menuName , restaurantId }) => {
     try{
-        const ifMenuExist = await prisma.menu.findUnique({
+        const ifMenuExist = await prisma.menu.findUnique({ // Will get menu object or null in the ifMenuExist Variable -> Prisma will find a specific menu from Menu Table and return it.
             where : { 
                 restaurantId_menuName : {
                     restaurantId : parseInt(restaurantId),
@@ -22,7 +22,7 @@ export const checkMenuExistance = async ({ menuName , restaurantId }) => {
 // Service For Creating a Menu with MenuItems
 export const createAMenuService = async ({ menuName , description , isActive , restaurantId }) => {
     try{
-        const newMenu = await prisma.menu.create({
+        const newMenu = await prisma.menu.create({ // Will get new menu in the newMenu Variable -> Prisma will create a new menu and insert it in the Menu Table and return it.
             data : {
                 restaurantId : parseInt(restaurantId),
                 menuName,
@@ -51,7 +51,7 @@ export const createMenuItemsService = async ({ currentMenuId , menuItems }) => {
             itemImage: menuItem.itemImage,
             itemCategory: menuItem.itemCategory
         }))
-        const newMenuitems = await prisma.menuItem.createMany({
+        const newMenuitems = await prisma.menuItem.createMany({ // Will get new menuItems in the formattedMenuItems Variable -> Prisma will create many new menuItems for a specific menu and insert it in the MenuItem Table and return it.
             data : formattedMenuItems
         })
         return newMenuitems;
@@ -65,7 +65,7 @@ export const createMenuItemsService = async ({ currentMenuId , menuItems }) => {
 // Service For Getting all Menus
 export const getAllMenusService = async ({ restaurantId }) => {
     try{    
-        const restaurantMenusList = await prisma.menu.findMany({
+        const restaurantMenusList = await prisma.menu.findMany({ // Will get all menu in the restaurantMenusList Variable -> Prisma will find all menus from Menu Table and return it.
             where : {restaurantId}
         })
         return restaurantMenusList;
@@ -78,7 +78,7 @@ export const getAllMenusService = async ({ restaurantId }) => {
 // Service For Getting all MenuItems
 export const getAllMenuItemsService = async ({ menuId }) => {
     try{
-        const menuItemsList = await prisma.menuItem.findMany({
+        const menuItemsList = await prisma.menuItem.findMany({ // Will get all menuItems in the menuItemsList Variable -> Prisma will find all menuItems for a specific menu from MenuItem Table and return it.
             where : { menuId }
         })
         return menuItemsList;
@@ -91,7 +91,7 @@ export const getAllMenuItemsService = async ({ menuId }) => {
 // Service For Getting all MenuItems
 export const getAllMenuItemsForARestaurantService = async ({ restaurantId }) => {
     try {
-        const menuItems = await prisma.menuItem.findMany({
+        const menuItems = await prisma.menuItem.findMany({ // Will get all menuItems in the menuItems Variable -> Prisma will find all menuItems for a specific restaurant from MenuItem Table and return it.
             where: {
                 menu: {
                     restaurantId: restaurantId,
@@ -107,7 +107,7 @@ export const getAllMenuItemsForARestaurantService = async ({ restaurantId }) => 
 // Service For Deleting a Specific Menu with MenuItems
 export const deleteMenuService = async ({ menuId }) => {
     try{
-        const deletedMenu = await prisma.menu.delete({
+        const deletedMenu = await prisma.menu.delete({ // Will get deleted menu in the deletedMenu Variable -> Prisma will delete a specific menu from Menu Table and return it.
             where : { menuId }
         })
         return deletedMenu;
@@ -120,7 +120,7 @@ export const deleteMenuService = async ({ menuId }) => {
 // Service For Getting a Restaurant ID for a User
 export const getRestaurantIdService = async ({ userId }) => {
     try{
-        const restaurantId = await prisma.restaurant.findFirst({
+        const restaurantId = await prisma.restaurant.findFirst({ // Will get a restaurantId in the restaurantId Variable -> Prisma will find a specific restaurantId for a specific restaurant from Restaurant Table and return it.
             where : { userId }
         })
         return restaurantId;

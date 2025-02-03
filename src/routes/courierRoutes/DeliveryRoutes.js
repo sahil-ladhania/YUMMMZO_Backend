@@ -8,11 +8,11 @@ const router  = express.Router();
 // router.put('/delivery/orders/:orderId/status', authenticate , authorize('UPDATE_ORDER_STATUS_COURIER'))
 // router.get('/delivery/history', authenticate , authorize('VIEW_DELIVERY_HISTORY'))
 
-router.put('/user/:userId/partner/:restaurantId/assign-delivery-partner/orders/:orderId', assignDeliveryPartner);
-router.put('/partner/:partnerId/:restaurantId/order-on-the-way/orders/:orderId', updateOrderStatusToOnTheWay);
-router.put('/partner/:partnerId/:restaurantId/order-delivered/orders/:orderId', updateOrderStatusToDelivered);
-router.get('/partner/:partnerId/get-active-delivery/orders/:orderId', getActiveDeliveryDetails);
-router.get('/partner/:partnerId/get-all-deliveries', getAllDeliveriesDoneByAPartner);
-router.get('/partner/:partnerId/get-orderId', getOrderDetailsOfCurrentDeliveryForAPartner);
+router.put('/user/:userId/partner/:restaurantId/assign-delivery-partner/orders/:orderId', assignDeliveryPartner); // If Owner Update the Status to OUT FOR DELIVERY -> assignDeliveryPartner will start executing.
+router.put('/partner/:partnerId/:restaurantId/order-on-the-way/orders/:orderId', updateOrderStatusToOnTheWay); // If Partner tries to Update the Order Status -> updateOrderStatusToOnTheWay will start executing.
+router.put('/partner/:partnerId/:restaurantId/order-delivered/orders/:orderId', updateOrderStatusToDelivered); // If Partner tries to Update the Order Status -> updateOrderStatusToDelivered will start executing.
+router.get('/partner/:partnerId/get-active-delivery/orders/:orderId', getActiveDeliveryDetails); // If Partner tries to get active delivery Details -> getActiveDeliveryDetails will start executing.
+router.get('/partner/:partnerId/get-all-deliveries', getAllDeliveriesDoneByAPartner); // If Partner tries to get all deliveries done -> getAllDeliveriesDoneByAPartner will start executing.
+router.get('/partner/:partnerId/get-orderId', getOrderDetailsOfCurrentDeliveryForAPartner); // If Partner tries to get current delivery details -> getOrderDetailsOfCurrentDeliveryForAPartner will start executing.
 
 export default router ;

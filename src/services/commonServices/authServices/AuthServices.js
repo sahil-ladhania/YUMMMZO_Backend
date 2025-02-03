@@ -4,7 +4,7 @@ import {comparePassword, generateToken} from "../../../utils/helpers/AuthHelpers
 // Service for Checking If a User Exist
 export const checkIfUserExists = async ({email}) => {
     try{
-        const ifUserExists = await prisma.user.findUnique({ 
+        const ifUserExists = await prisma.user.findUnique({ // Will get User Object or null in ifUserExists Variable -> Prisma will search in User Table if the User with this email exist or not.
             where: {email}
         })
         return ifUserExists; 
@@ -16,7 +16,7 @@ export const checkIfUserExists = async ({email}) => {
 
 export const checkIfUserExistsById = async ({userId}) => {
     try{
-        const ifUserExists = await prisma.user.findUnique({ 
+        const ifUserExists = await prisma.user.findUnique({ // Will get User Object or null in ifUserExists Variable -> Prisma will search in User Table if the User with this userId exist or not.
             where: {userId}
         })
         return ifUserExists; 
@@ -29,7 +29,7 @@ export const checkIfUserExistsById = async ({userId}) => {
 // Service for Creating a New User
 export const createUserService = async ({firstName , lastName , phoneNumber , email , hashedPassword , role}) => {
     try{
-        const newUser = await prisma.user.create({
+        const newUser = await prisma.user.create({ // Will the new User Object in the newUser Variable -> Prisma will create and insert new User Object in the User Table with all the info got.
             data : {
                 firstName,
                 lastName,
@@ -49,18 +49,17 @@ export const createUserService = async ({firstName , lastName , phoneNumber , em
 // Service for Authenticating the User
 export const authenticateService = async ({email , password}) => {
     try{
-        const user = await prisma.user.findUnique({ 
+        const user = await prisma.user.findUnique({
             where : {email}
         });
         if(!user){
             return null; 
         }
-        const isPasswordValid = await comparePassword(password , user.password);
+        const isPasswordValid = await comparePassword(password , user.password); // Will get User Object or null Based on the Password Match in isPasswordValid Variable -> comparePassword Function will start executing  and will take password that user entered with that is Saved in DB.
         if(!isPasswordValid){
             return null;
         }
-        const jwt_token = await generateToken(user.userId , user.firstName , user.email , user.role); 
-        console.log(jwt_token); 
+        const jwt_token = await generateToken(user.userId , user.firstName , user.email , user.role); // Will get the JWT Token in the jwt_token Variable -> generateToken will start executing and will take relevant info to set in Payload.
         const User = {
             user : user,
             jwt_token : jwt_token
@@ -83,7 +82,7 @@ export const updatePasswordService = async ({email , password , newHashedPasswor
         if(!isPasswordValid){
             throw new Error('Current Password is Incorrect...');
         }
-        const User = await prisma.user.update({ 
+        const User = await prisma.user.update({ // Will get the Updated User Object or null in the User Variable -> Prisma will update existing User Object in the User Table with all the info got to Update. 
             where : {email},
             data : {
                 password : newHashedPassword

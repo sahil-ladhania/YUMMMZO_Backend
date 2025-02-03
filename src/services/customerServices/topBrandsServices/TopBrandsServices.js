@@ -3,13 +3,12 @@ import prisma from "../../../config/DB.js";
 // Service to Get All Cuisines
 export const createTopBrandService = async({image , name}) => {
     try{
-        const createdTopBrand = await prisma.topBrand.create({
+        const createdTopBrand = await prisma.topBrand.create({ // Will get created top brand in the createdTopBrand Variable -> Prisma will create a new record of top brand and insert it in topBrand Table and return it.
             data : {
                 image : image,
                 name : name
             }
         });
-        console.log(createdTopBrand);
         return createdTopBrand;
     }
     catch(error){
@@ -20,7 +19,7 @@ export const createTopBrandService = async({image , name}) => {
 // Service to Get All Cuisines
 export const getTopBrandsService = async() => {
     try{
-        const topBrands = await prisma.topBrand.findMany();
+        const topBrands = await prisma.topBrand.findMany(); // Will get all top brands in the topBrands Variable -> Prisma will find all the topBrands from topBrand Table and return it.
         return topBrands;
     }
     catch(error){

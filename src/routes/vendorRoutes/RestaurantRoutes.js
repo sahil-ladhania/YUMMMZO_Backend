@@ -8,8 +8,8 @@ const router = express.Router();
 // router.put('/restaurants/:restaurantId' , authenticate , authorize('UPDATE_RESTAURANT') , updateRestaurant);
 // router.delete('/restaurants/:restaurantId' , authenticate , authorize('DELETE_RESTAURANT') , deleteRestaurant);
 
-router.post('/restaurants' , createRestaurant); 
-router.put('/restaurants/:restaurantId' , updateRestaurant);
-router.delete('/restaurants/:restaurantId' , deleteRestaurant);
+router.post('/restaurants' , createRestaurant); // If Owner tries to create a new restaurant -> createRestaurant will start executing.
+router.put('/restaurants/:restaurantId' , updateRestaurant); // If Owner tries to update an existing restaurant -> updateRestaurant will start executing.
+router.delete('/restaurants/:restaurantId' , deleteRestaurant); // If Owner tries to delete an existing restaurant -> deleteRestaurant will start executing.
 
 export default router;

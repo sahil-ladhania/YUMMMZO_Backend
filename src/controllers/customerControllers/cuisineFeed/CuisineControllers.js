@@ -3,7 +3,7 @@ import { getAllCuisinesService } from "../../../services/customerServices/cuisin
 // Controller to Get All Cuisines
 export const getAllCuisines = async(req , res , next) => {
     try{
-        const cuisines = await getAllCuisinesService(); 
+        const cuisines = await getAllCuisinesService(); // Will get all cuisines in the cuisines Variable -> getAllCuisinesService will start executing.
         return res.status(200).send({ 
             message : "Cuisines Successfully Retrieved...",
             cuisines : cuisines

@@ -14,12 +14,11 @@ export const placeOrder = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifUserExist = await checkIfUserExistsById({userId : userId_INT});
+        const ifUserExist = await checkIfUserExistsById({userId : userId_INT}); // Will get existing user object or null in the ifUserExist Variable -> checkIfUserExistsById will start executing.
         if(ifUserExist){
-            const ifRestaurantExist = await checkIfRestaurantExist({restaurantId : restaurantId_INT});
+            const ifRestaurantExist = await checkIfRestaurantExist({restaurantId : restaurantId_INT}); // Will get existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing.
             if(ifRestaurantExist){
-                const placedOrder = await placeOrderService({ userId : userId_INT , restaurantId : restaurantId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress });
-                console.log(placedOrder);
+                const placedOrder = await placeOrderService({ userId : userId_INT , restaurantId : restaurantId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress }); // Will get placed order object in the placedOrder Variable -> placeOrderService will start executing and will take body info.
                 return res.status(201).send({ 
                     message : "User Order Placed Successfully...",
                     orderDetails : placedOrder

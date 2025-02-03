@@ -32,7 +32,7 @@ export const searchAndSortRestaurantsService = async (criteria) => {
                 }
             }
         }
-        const filteredRestaurants = await prisma.restaurant.findMany({
+        const filteredRestaurants = await prisma.restaurant.findMany({ // Will get filtered restaurants in filteredRestaurants Variable -> Prisma will find all restaurants that matches where and orderBy criterias from the Restaurant Table and return it.
             where,
             orderBy
         })

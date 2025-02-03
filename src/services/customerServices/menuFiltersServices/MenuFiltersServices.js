@@ -32,7 +32,7 @@ export const searchAndSortMenuItemsService = async ({ restaurantId , sortingCrit
                 }
             }
         }
-        const menuItems = await prisma.menuItem.findMany({
+        const menuItems = await prisma.menuItem.findMany({ // Will get menuItems in menuItems Variable -> Prisma will find menu items that matches where and orderBy Critera from the MenuItem Table and return it.
             where,
             orderBy,
             include : {

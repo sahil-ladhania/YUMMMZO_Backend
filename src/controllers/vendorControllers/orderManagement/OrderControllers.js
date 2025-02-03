@@ -12,9 +12,9 @@ export const getAllActiveOrdersForARestaurant = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT});
+        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
         if(ifRestaurantExist){
-            const ordersForRestaurant = await getAllActiveOrdersForARestaurantService({ restaurantId : restaurantId_INT });
+            const ordersForRestaurant = await getAllActiveOrdersForARestaurantService({ restaurantId : restaurantId_INT }); // Will get all orders for a restaurant in the ordersForRestaurant Variable -> getAllActiveOrdersForARestaurantService will start executing and will take restaurantId.
             return res.status(200).send({ 
                 message : "Orders Successfully Retrieved...",
                 orders : ordersForRestaurant
@@ -42,11 +42,11 @@ export const getAOrderForARestaurant = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT});
+        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
         if(ifRestaurantExist){
-            const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT});
+            const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT}); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
             if(ifOrderExist){
-                const orderForRestaurant = await getAOrderForARestaurantService({orderId : orderId_INT});
+                const orderForRestaurant = await getAOrderForARestaurantService({orderId : orderId_INT}); // Will get a specific order in the orderForRestaurant Variable -> getAOrderForARestaurantService will start executing and will take orderId.
                 return res.status(200).send({ 
                     message : "Order Successfully Retrieved...",
                     order : orderForRestaurant
@@ -81,12 +81,11 @@ export const acceptOrRejectOrder_R = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT});
+        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
         if(ifRestaurantExist){
-            const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT});
+            const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT}); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
             if(ifOrderExist){
-                const updatedOrderDetails = await acceptOrRejectOrderService_R({orderId : orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress});
-                console.log(updatedOrderDetails);
+                const updatedOrderDetails = await acceptOrRejectOrderService_R({orderId : orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get updated order details in the updatedOrderDetails Variable -> acceptOrRejectOrderService_R will start executing and will take body info.
                 if(updatedOrderDetails.orderStatus === "ACCEPTED"){                    
                     return res.status(200).send({ 
                         message : "User Order Accepted By Restaurant Successfully...",
@@ -129,20 +128,20 @@ export const updateOrderStatusToInProgress_R = async (req, res, next) => {
                 message: "Please fill all required fields..."
             });
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({ restaurantId: restaurantId_INT });
+        const ifRestaurantExist = await checkIfRestaurantExist({ restaurantId: restaurantId_INT }); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
         if (!ifRestaurantExist) {
             return res.status(400).send({
                 message: "Restaurant Doesnt Exist..."
             });
         }
-        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT });
+        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT }); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
         if (!ifOrderExist) {
             return res.status(400).send({
                 message: "Order Doesnt Exist..."
             });
         }
         if (ifOrderExist.orderStatus === "ACCEPTED") {
-            const updatedOrderDetails = await updateOrderStatusToInProgressService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress});
+            const updatedOrderDetails = await updateOrderStatusToInProgressService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get updated order details in the updatedOrderDetails Variable -> updateOrderStatusToInProgressService_R will start executing and will take body info.
             if(updatedOrderDetails.orderStatus === "IN_PROGRESS"){
                 return res.status(200).send({
                     message: "User Order is in Progress Successfully...",
@@ -179,20 +178,20 @@ export const updateOrderStatusToOutForDelivery_R = async (req, res, next) => {
                 message: "Please fill all required fields..."
             });
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({ restaurantId: restaurantId_INT });
+        const ifRestaurantExist = await checkIfRestaurantExist({ restaurantId: restaurantId_INT }); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
         if (!ifRestaurantExist) {
             return res.status(400).send({
                 message: "Restaurant Doesn't Exist..."
             });
         }
-        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT });
+        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT }); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
         if (!ifOrderExist) {
             return res.status(400).send({
                 message: "Order Doesn't Exist..."
             });
         }
         if (ifOrderExist.orderStatus === "IN_PROGRESS") {
-            const updatedOrderDetails = await updateOrderStatusToOutForDeliveryService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress});
+            const updatedOrderDetails = await updateOrderStatusToOutForDeliveryService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get updated order details in the updatedOrderDetails Variable -> updateOrderStatusToOutForDeliveryService_R will start executing and will take body info.
             return res.status(200).send({
                 message: "User Order is Out For Delivery Successfully...",
                 orderStatus: updatedOrderDetails.orderStatus

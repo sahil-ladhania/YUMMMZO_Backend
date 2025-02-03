@@ -10,8 +10,7 @@ export const createTopBrand = async(req , res , next) => {
             })
         }
         // save the data in db
-        const createdTopBrand = await createTopBrandService({image , name});
-        console.log(createdTopBrand);
+        const createdTopBrand = await createTopBrandService({image , name}); // Will get created top brand in the createdTopBrand Variable -> createTopBrandService will start executing.
         return res.status(201).send({ 
             message : "Top Brand Successfully Created...",
             topBrand : createdTopBrand
