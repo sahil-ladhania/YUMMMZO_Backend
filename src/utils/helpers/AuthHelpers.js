@@ -37,7 +37,7 @@ export const generateToken = async(userId , firstName , email , role) => {
         const options = {
             expiresIn : "1h",
         }
-        const jwt_token = await jwt.sign(payload, secretKey, options); // Will get Token or will throw an error based on the process -> Will use bcrypt.sign method of bcrypt that takes password , secretKey and options.
+        const jwt_token = jwt.sign(payload, secretKey, options); // Will get Token or will throw an error based on the process -> Will use bcrypt.sign method of bcrypt that takes password , secretKey and options.
         return jwt_token;
     }
     catch(error){

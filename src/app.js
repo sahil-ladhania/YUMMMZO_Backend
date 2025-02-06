@@ -23,11 +23,16 @@ import OrderHistoryRoutes from "./routes/customerRoutes/OrderHistoryRoutes.js";
 import OrderTrackingRoutes from "./routes/customerRoutes/OrderTrackingRoutes.js";
 import ScheduleOrdersRoutes from "./routes/customerRoutes/ScheduleOrdersRoutes.js";
 import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 import cors from "cors";
 
 const app = express()
 const port = 3000
 
+dotenv.config();
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:5173', 

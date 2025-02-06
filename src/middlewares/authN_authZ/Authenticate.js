@@ -1,15 +1,17 @@
 import jwt from 'jsonwebtoken';
 
+const secretKey = process.env.JWT_SECRET_KEY;
+
 // Middleware for Authenticating a User
 export const authenticate = async (req, res, next) => {
     try {
-        const token = req.headers.cookie; 
+        const token = req.cookies.jwt; 
         if (!token) {
             return res.status(401).send({
                 message: "Token not found..."
             });
         }
-        jwt.verify(token, process.env.JWT_SECRET_KEY, (error, decodedJWT) => { 
+        jwt.verify(token, secretKey, (error, decodedJWT) => { 
             if (error) {
                 return res.status(403).send({
                     message: "Invalid or expired token..."

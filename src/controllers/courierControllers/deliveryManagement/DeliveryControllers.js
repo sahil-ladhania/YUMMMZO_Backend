@@ -16,31 +16,31 @@ export const assignDeliveryPartner = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifUserExist = await checkIfUserExistsById({userId: userId_INT}); // Will get existing user object or null in the ifUserExist Variable -> checkIfUserExistsById will start executing and will take userId.
-        if(!ifUserExist){
-            return res.status(400).send({
-                message: "User Doesn't Exist..."
-            });
-        }
-        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
-        if(!ifRestaurantExist){
-            return res.status(400).send({
-                message: "Restaurant Doesn't Exist..."
-            });
-        }
-        const ifOrderExist = await checkingOrderExistence({orderId: orderId_INT}); // Will get existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
-        if (!ifOrderExist) {
-            return res.status(400).send({
-                message: "Order Doesn't Exist..."
-            });
-        }
-        if(ifOrderExist.orderStatus === "OUT_FOR_DELIVERY"){
-            const assignedDeliveryPartner = await assignDeliveryPartnerService({userId:userId_INT , restaurantId: restaurantId_INT , orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get assigned delivery partner details in the assignedDeliveryPartner Variable -> assignDeliveryPartnerService will start executing and will take body info.
-            return res.status(200).send({
-                message: "Order is being assigned a Delivery Partner...",
-                updatedOrderDetails: assignedDeliveryPartner
-            });
-        }
+        // const ifUserExist = await checkIfUserExistsById({userId: userId_INT}); // Will get existing user object or null in the ifUserExist Variable -> checkIfUserExistsById will start executing and will take userId.
+        // if(!ifUserExist){
+        //     return res.status(400).send({
+        //         message: "User Doesn't Exist..."
+        //     });
+        // }
+        // const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
+        // if(!ifRestaurantExist){
+        //     return res.status(400).send({
+        //         message: "Restaurant Doesn't Exist..."
+        //     });
+        // }
+        // const ifOrderExist = await checkingOrderExistence({orderId: orderId_INT}); // Will get existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
+        // if (!ifOrderExist) {
+        //     return res.status(400).send({
+        //         message: "Order Doesn't Exist..."
+        //     });
+        // }
+        // if(ifOrderExist.orderStatus === "OUT_FOR_DELIVERY"){
+        //     const assignedDeliveryPartner = await assignDeliveryPartnerService({userId:userId_INT , restaurantId: restaurantId_INT , orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get assigned delivery partner details in the assignedDeliveryPartner Variable -> assignDeliveryPartnerService will start executing and will take body info.
+        //     return res.status(200).send({
+        //         message: "Order is being assigned a Delivery Partner...",
+        //         updatedOrderDetails: assignedDeliveryPartner
+        //     });
+        // }
     }
     catch (error){
         next(error);
