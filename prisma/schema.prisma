@@ -176,29 +176,29 @@ model MenuItem {
 
 model Order {
   orderId       Int            @id @default(autoincrement())
-  userId        Int            // The user placing the order
-  restaurantId  Int            // The restaurant receiving the order
-  deliveryPartnerId Int?       // The delivery partner assigned to this order (optional initially)
+  userId        Int            
+  restaurantId  Int            
+  deliveryPartnerId Int?       
   orderItems    OrderItem[]    // Relation - Order will have multiple items
-  totalPrice    Int            // Total price of the order
+  totalPrice    Int            
   orderStatus   OrderStatus    @default(PENDING)
-  deliveryTime  DateTime?      // Estimated delivery time (if accepted)
-  userAddress       String     @default("") // User address (as a simple string for now)
-  restaurantAddress String     @default("")// Restaurant address (as a simple string for now)
+  deliveryTime  DateTime?      
+  userAddress       String     @default("") 
+  restaurantAddress String     @default("")
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @default(now()) @updatedAt
-  user          User           @relation(fields: [userId], references: [userId]) // The customer who placed the order
-  restaurant    Restaurant     @relation(fields: [restaurantId], references: [restaurantId]) // The restaurant fulfilling the order
-  deliveryPartner User?        @relation("DeliveryPartner", fields: [deliveryPartnerId], references: [userId]) // Optional delivery partner
+  user          User           @relation(fields: [userId], references: [userId]) // Relation - Order belongs to a User
+  restaurant    Restaurant     @relation(fields: [restaurantId], references: [restaurantId]) // Relation - Order belongs to a Restaurant
+  deliveryPartner User?        @relation("DeliveryPartner", fields: [deliveryPartnerId], references: [userId]) // Relation - Order belongs to a Delivery Partner
 }
 
 model OrderItem {
   orderItemId Int       @id @default(autoincrement())
-  orderId     Int       // The associated order
-  menuItemId  Int       // The menu item being ordered
-  quantity    Int       @default(1) // Quantity of the item
-  itemPrice   Int       // Price of the item (copied from menu at the time of order)
-  totalPrice  Int       // Calculated as quantity * itemPrice
+  orderId     Int       
+  menuItemId  Int       
+  quantity    Int       @default(1)
+  itemPrice   Int       
+  totalPrice  Int       
   order       Order     @relation(fields: [orderId], references: [orderId], onDelete: Cascade) // Relation - Item belongs to an order
   menuItem    MenuItem  @relation(fields: [menuItemId], references: [itemId]) // Relation - Item references a menu item
 }

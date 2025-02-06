@@ -1,6 +1,17 @@
 import prisma from "../../../config/DB.js";
 
 // Service to Get All Active Orders For a Restaurant
+export const checkIfOrderBelongsToRestaurant = async ({orderId , restaurantId}) => {
+    try{
+        // logic
+    }
+    catch(error){
+        throw new Error('Error Getting All Orders For a Restaurant : ' + error.message + error.stack);
+    }
+};
+
+
+// Service to Get All Active Orders For a Restaurant
 export const getAllActiveOrdersForARestaurantService = async ({ restaurantId }) => {
     try{
         const restaurantActiveOrders = await prisma.restaurant.findMany({ // Will get all orders for a restaurant in the restaurantActiveOrders Variable -> Prisma will find all the orders from Restaurant Table and return it.
