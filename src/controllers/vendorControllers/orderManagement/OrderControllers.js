@@ -1,6 +1,5 @@
 import { checkingOrderExistence } from "../../../services/customerServices/ordersAndPaymentsServices/OrdersAndPaymentsServices.js";
 import { acceptOrRejectOrderService_R, getActiveOrderForARestaurantService, getAllPreviousOrdersForARestaurantService, updateOrderStatusToInProgressService_R, updateOrderStatusToOutForDeliveryService_R } from "../../../services/vendorServices/orderServices/OrderServices.js";
-import { checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
 import { checkIfOrderBelongsToRestaurant, checkIfRestaurantBelongsToOwner } from "../../../utils/ownership validation/vendor/OrdersValidation.js";
 
 // Controller to Get All Active Orders For a Restaurant
@@ -13,19 +12,23 @@ export const getAllPreviousOrdersForARestaurant = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
-        if(ifRestaurantExist){
-            const ordersForRestaurant = await getAllPreviousOrdersForARestaurantService({ restaurantId : restaurantId_INT }); // Will get all orders for a restaurant in the ordersForRestaurant Variable -> getAllActiveOrdersForARestaurantService will start executing and will take restaurantId.
-            return res.status(200).send({ 
-                message : "Orders Successfully Retrieved...",
-                orders : ordersForRestaurant
-            })
+        const ownerId = req.user.userId;
+        const restaurantBelongsToOwner = await checkIfRestaurantBelongsToOwner({restaurantId : restaurantId_INT , ownerId});
+        if (!restaurantBelongsToOwner) {
+            return res.status(403).json({ 
+                message: "Unauthorized: This Restaurant Does Not Belong To You..." 
+            });
         }
-        else{
+        const ordersForRestaurant = await getAllPreviousOrdersForARestaurantService({ restaurantId : restaurantId_INT });
+        if(!ordersForRestaurant){
             return res.status(400).send({
-                message : "Restaurant Doesnt Exist..."
+                message : "No Previous Orders For a Restaurant..."
             })
         }
+        return res.status(200).send({ 
+            message : "Orders Successfully Retrieved...",
+            orders : ordersForRestaurant
+        })
     }
     catch(error){
         next(error);
@@ -56,7 +59,7 @@ export const getActiveOrderForARestaurant = async (req , res , next) => {
                 message: "Unauthorized: This Order Does Not Belong To This Specific Restaurant..." 
             });
         }
-        const orderForRestaurant = await getActiveOrderForARestaurantService({orderId : orderId_INT}); // Will get a specific order in the orderForRestaurant Variable -> getAOrderForARestaurantService will start executing and will take orderId.
+        const orderForRestaurant = await getActiveOrderForARestaurantService({orderId : orderId_INT}); 
         if (!orderForRestaurant) {
             return res.status(400).json({ 
                 message: "Order Doesn't Exist..." 
@@ -84,33 +87,30 @@ export const acceptOrRejectOrder_R = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
-        if(ifRestaurantExist){
-            const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT}); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
-            if(ifOrderExist){
-                const updatedOrderDetails = await acceptOrRejectOrderService_R({orderId : orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get updated order details in the updatedOrderDetails Variable -> acceptOrRejectOrderService_R will start executing and will take body info.
-                if(updatedOrderDetails.orderStatus === "ACCEPTED"){                    
-                    return res.status(200).send({ 
-                        message : "User Order Accepted By Restaurant Successfully...",
-                        orderStatus : updatedOrderDetails.orderStatus
-                    })
-                }
-                else if(updatedOrderDetails.orderStatus === "REJECTED"){
-                    return res.status(200).send({ 
-                        message : "User Order Rejected By Restaurant Successfully...",
-                        orderStatus : updatedOrderDetails.orderStatus
-                    })
-                }
-            }
-            else{
-                return res.status(400).send({
-                    message : "Order Doesnt Exist..."
-                })    
-            }
+        const ownerId = req.user.userId;
+        const restaurantBelongsToOwner = await checkIfRestaurantBelongsToOwner({restaurantId : restaurantId_INT , ownerId});
+        if (!restaurantBelongsToOwner) {
+            return res.status(403).json({ 
+                message: "Unauthorized: This Restaurant Does Not Belong To You..." 
+            });
         }
-        else{
-            return res.status(400).send({
-                message : "Restaurant Doesnt Exist..."
+        const orderBelongsToRestaurant = await checkIfOrderBelongsToRestaurant({orderId : orderId_INT , restaurantId : restaurantId_INT});
+        if(!orderBelongsToRestaurant){
+            return res.status(403).json({ 
+                message: "Unauthorized: This Order Does Not Belong To This Specific Restaurant..." 
+            });
+        }
+        const updatedOrderDetails = await acceptOrRejectOrderService_R({orderId : orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress});
+        if(updatedOrderDetails.orderStatus === "ACCEPTED"){                    
+            return res.status(200).send({ 
+                message : "User Order Accepted By Restaurant Successfully...",
+                orderStatus : updatedOrderDetails.orderStatus
+            })
+        }
+        else if(updatedOrderDetails.orderStatus === "REJECTED"){
+            return res.status(200).send({ 
+                message : "User Order Rejected By Restaurant Successfully...",
+                orderStatus : updatedOrderDetails.orderStatus
             })
         }
     }
@@ -131,32 +131,37 @@ export const updateOrderStatusToInProgress_R = async (req, res, next) => {
                 message: "Please fill all required fields..."
             });
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({ restaurantId: restaurantId_INT }); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
-        if (!ifRestaurantExist) {
-            return res.status(400).send({
-                message: "Restaurant Doesnt Exist..."
+        const ownerId = req.user.userId;
+        const restaurantBelongsToOwner = await checkIfRestaurantBelongsToOwner({restaurantId : restaurantId_INT , ownerId});
+        if (!restaurantBelongsToOwner) {
+            return res.status(403).json({ 
+                message: "Unauthorized: This Restaurant Does Not Belong To You..." 
             });
         }
-        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT }); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
+        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT }); 
         if (!ifOrderExist) {
             return res.status(400).send({
                 message: "Order Doesnt Exist..."
             });
         }
+        const orderBelongsToRestaurant = await checkIfOrderBelongsToRestaurant({orderId : orderId_INT , restaurantId : restaurantId_INT});
+        if(!orderBelongsToRestaurant){
+            return res.status(403).json({ 
+                message: "Unauthorized: This Order Does Not Belong To This Specific Restaurant..." 
+            });
+        }
         if (ifOrderExist.orderStatus === "ACCEPTED") {
-            const updatedOrderDetails = await updateOrderStatusToInProgressService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get updated order details in the updatedOrderDetails Variable -> updateOrderStatusToInProgressService_R will start executing and will take body info.
-            if(updatedOrderDetails.orderStatus === "IN_PROGRESS"){
-                return res.status(200).send({
-                    message: "User Order is in Progress Successfully...",
-                    orderStatus: updatedOrderDetails.orderStatus
-                });
-            } 
-            else{
+            const updatedOrderDetails = await updateOrderStatusToInProgressService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); 
+            if(!updatedOrderDetails.orderStatus === "IN_PROGRESS"){
                 return res.status(200).send({
                     message: "User Order is not Updated to In Progress Order Status...",
                     orderStatus: updatedOrderDetails.orderStatus
                 });
-            }
+            } 
+            return res.status(200).send({
+                message: "User Order Status Updated To In Progress Successfully...",
+                orderStatus: updatedOrderDetails.orderStatus
+            });
         } 
         else {
             return res.status(200).send({
@@ -181,22 +186,35 @@ export const updateOrderStatusToOutForDelivery_R = async (req, res, next) => {
                 message: "Please fill all required fields..."
             });
         }
-        const ifRestaurantExist = await checkIfRestaurantExist({ restaurantId: restaurantId_INT }); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
-        if (!ifRestaurantExist) {
-            return res.status(400).send({
-                message: "Restaurant Doesn't Exist..."
+        const ownerId = req.user.userId;
+        const restaurantBelongsToOwner = await checkIfRestaurantBelongsToOwner({restaurantId : restaurantId_INT , ownerId});
+        if (!restaurantBelongsToOwner) {
+            return res.status(403).json({ 
+                message: "Unauthorized: This Restaurant Does Not Belong To You..." 
             });
         }
-        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT }); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
+        const ifOrderExist = await checkingOrderExistence({ orderId: orderId_INT }); 
         if (!ifOrderExist) {
             return res.status(400).send({
-                message: "Order Doesn't Exist..."
+                message: "Order Doesnt Exist..."
+            });
+        }
+        const orderBelongsToRestaurant = await checkIfOrderBelongsToRestaurant({orderId : orderId_INT , restaurantId : restaurantId_INT});
+        if(!orderBelongsToRestaurant){
+            return res.status(403).json({ 
+                message: "Unauthorized: This Order Does Not Belong To This Specific Restaurant..." 
             });
         }
         if (ifOrderExist.orderStatus === "IN_PROGRESS") {
-            const updatedOrderDetails = await updateOrderStatusToOutForDeliveryService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); // Will get updated order details in the updatedOrderDetails Variable -> updateOrderStatusToOutForDeliveryService_R will start executing and will take body info.
+            const updatedOrderDetails = await updateOrderStatusToOutForDeliveryService_R({orderId: orderId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress}); 
+            if(!updatedOrderDetails.orderStatus === "OUT_FOR_DELIVERY"){
+                return res.status(200).send({
+                    message: "User Order is not Updated to Out For Delivery Order Status...",
+                    orderStatus: updatedOrderDetails.orderStatus
+                });
+            }            
             return res.status(200).send({
-                message: "User Order is Out For Delivery Successfully...",
+                message: "User Order Status is Updated to Out For Delivery Successfully...",
                 orderStatus: updatedOrderDetails.orderStatus
             });
         } 

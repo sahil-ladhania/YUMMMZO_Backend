@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const updateDeliveryStatusToOnTheWayValidation = {
     params : z.object({
-        userId : z.string().min(1 , "User Id is required and must be a positive number !!!"),
+        partnerId : z.string().min(1 , "User Id is required and must be a positive number !!!"),
         restaurantId : z.string().min(1 , "Restaurant Id is required and must be a positive number !!!"),
         orderId : z.string().min(1 , "Order Id is required and must be a positive number !!!"),
     }),
