@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-    changePasswordController,
-    loginController,
-    logoutController,
-    signupController
-} from "../../controllers/commonControllers/authN_authZ/AuthController.js";
+import { changePasswordController , loginController , logoutController , signupController } from "../../controllers/commonControllers/authN_authZ/AuthController.js";
 import { validateRequest } from '../../middlewares/dataValidation/ValidateRequestMiddleware.js';
 import { signupSchema } from '../../utils/validations/common/SignupValidation.js';
 import { loginSchema } from '../../utils/validations/common/LoginValidation.js';

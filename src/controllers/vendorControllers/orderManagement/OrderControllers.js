@@ -1,9 +1,9 @@
 import { checkingOrderExistence } from "../../../services/customerServices/ordersAndPaymentsServices/OrdersAndPaymentsServices.js";
-import { acceptOrRejectOrderService_R, checkIfOrderBelongsToRestaurant, getAllActiveOrdersForARestaurantService, getAOrderForARestaurantService, updateOrderStatusToInProgressService_R, updateOrderStatusToOutForDeliveryService_R } from "../../../services/vendorServices/orderServices/OrderServices.js";
+import { acceptOrRejectOrderService_R, checkIfOrderBelongsToRestaurant, getActiveOrderForARestaurantService, getAllPreviousOrdersForARestaurantService, updateOrderStatusToInProgressService_R, updateOrderStatusToOutForDeliveryService_R } from "../../../services/vendorServices/orderServices/OrderServices.js";
 import { checkIfRestaurantBelongsToOwner, checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
 
 // Controller to Get All Active Orders For a Restaurant
-export const getAllActiveOrdersForARestaurant = async (req , res , next) => {
+export const getAllPreviousOrdersForARestaurant = async (req , res , next) => {
     try{
         const { restaurantId } = req.params;
         const restaurantId_INT = parseInt(restaurantId);
@@ -14,7 +14,7 @@ export const getAllActiveOrdersForARestaurant = async (req , res , next) => {
         }
         const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
         if(ifRestaurantExist){
-            const ordersForRestaurant = await getAllActiveOrdersForARestaurantService({ restaurantId : restaurantId_INT }); // Will get all orders for a restaurant in the ordersForRestaurant Variable -> getAllActiveOrdersForARestaurantService will start executing and will take restaurantId.
+            const ordersForRestaurant = await getAllPreviousOrdersForARestaurantService({ restaurantId : restaurantId_INT }); // Will get all orders for a restaurant in the ordersForRestaurant Variable -> getAllActiveOrdersForARestaurantService will start executing and will take restaurantId.
             return res.status(200).send({ 
                 message : "Orders Successfully Retrieved...",
                 orders : ordersForRestaurant
@@ -32,7 +32,7 @@ export const getAllActiveOrdersForARestaurant = async (req , res , next) => {
 };
 
 // Controller to Get a Order For a Restaurant
-export const getAOrderForARestaurant = async (req , res , next) => {
+export const getActiveOrderForARestaurant = async (req , res , next) => {
     try{
         const { restaurantId , orderId } = req.params;
         const restaurantId_INT = parseInt(restaurantId);
@@ -53,7 +53,7 @@ export const getAOrderForARestaurant = async (req , res , next) => {
         // if(ifRestaurantExist){
         //     const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT}); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
         //     if(ifOrderExist){
-        //         const orderForRestaurant = await getAOrderForARestaurantService({orderId : orderId_INT}); // Will get a specific order in the orderForRestaurant Variable -> getAOrderForARestaurantService will start executing and will take orderId.
+                // const orderForRestaurant = await getActiveOrderForARestaurantService({orderId : orderId_INT}); // Will get a specific order in the orderForRestaurant Variable -> getAOrderForARestaurantService will start executing and will take orderId.
         //         return res.status(200).send({ 
         //             message : "Order Successfully Retrieved...",
         //             order : orderForRestaurant

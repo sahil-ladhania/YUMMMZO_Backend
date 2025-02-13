@@ -6,11 +6,7 @@ import { validateRequest } from '../../middlewares/dataValidation/ValidateReques
 import { createMenuValidation } from '../../utils/validations/vendor/CreateMenuValidation.js';
 const router = express.Router();
 
-// router.post('/restaurants/:restaurantId/menu' , authenticate , authorize('CREATE_MENU'));
-// router.put('/restaurants/:restaurantId/menu/:itemId' , authenticate , authorize('UPDATE_MENU_ITEM'));
-// router.delete('/restaurants/:restaurantId/menu/:itemId' , authenticate , authorize('DELETE_MENU_ITEM'));
-
-router.post('/restaurants/:restaurantId/menu' , validateRequest(createMenuValidation) , createMenu); // If Owner tries to create a new menu -> createMenu will start executing.
+router.post('/restaurants/:restaurantId/menu' , authenticate , authorize('CREATE_MENU') , validateRequest(createMenuValidation) , createMenu); // If Owner tries to create a new menu -> createMenu will start executing.
 router.get('/restaurants/:restaurantId/menus' , getAllMenus); // If Owner tries to get all menus -> getAllMenus will start executing.
 router.get('/restaurants/menu/:menuId/menuItems' , getAllMenuItems); // If Owner tries to get all menuItems for a menu -> getAllMenuItems will start executing.
 router.get('/restaurants/:restaurantId/menu/menuItems' , getAllMenuItemsForARestaurant); // If Owner tries to get all menuItems for a retaurant -> getAllMenuItemsForARestaurant will start executing.

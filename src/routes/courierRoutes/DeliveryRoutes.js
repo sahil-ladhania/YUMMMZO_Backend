@@ -8,9 +8,6 @@ import { updateDeliveryStatusToOnTheWayValidation } from '../../utils/validation
 import { updateDeliveryStatusToDeliveredValidation } from '../../utils/validations/courier/UpdateDeliveryStatusToDeliveredValidation.js';
 const router  = express.Router();
 
-// router.get('/delivery/orders', authenticate , authorize('VIEW_ACTIVE_ORDERS'))
-// router.put('/delivery/orders/:orderId/status', authenticate , authorize('UPDATE_ORDER_STATUS_COURIER'))
-// router.get('/delivery/history', authenticate , authorize('VIEW_DELIVERY_HISTORY'))
 
 router.put('/user/:userId/partner/:restaurantId/assign-delivery-partner/orders/:orderId', authenticate , authorize('ASSIGN_DELIVERY_PARTNER') , validateRequest(assignDeliveryPartnerValidation) , assignDeliveryPartner); // If Owner Update the Status to OUT FOR DELIVERY -> assignDeliveryPartner will start executing.
 router.put('/partner/:partnerId/:restaurantId/order-on-the-way/orders/:orderId', validateRequest(updateDeliveryStatusToOnTheWayValidation) , updateOrderStatusToOnTheWay); // If Partner tries to Update the Order Status -> updateOrderStatusToOnTheWay will start executing.

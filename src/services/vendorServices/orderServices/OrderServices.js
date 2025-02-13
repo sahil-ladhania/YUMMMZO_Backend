@@ -12,7 +12,7 @@ export const checkIfOrderBelongsToRestaurant = async ({orderId , restaurantId}) 
 
 
 // Service to Get All Active Orders For a Restaurant
-export const getAllActiveOrdersForARestaurantService = async ({ restaurantId }) => {
+export const getAllPreviousOrdersForARestaurantService = async ({ restaurantId }) => {
     try{
         const restaurantActiveOrders = await prisma.restaurant.findMany({ // Will get all orders for a restaurant in the restaurantActiveOrders Variable -> Prisma will find all the orders from Restaurant Table and return it.
             where : {
@@ -37,7 +37,7 @@ export const getAllActiveOrdersForARestaurantService = async ({ restaurantId }) 
 };
 
 // Service to Get a Order For a Restaurant
-export const getAOrderForARestaurantService = async ({orderId}) => {
+export const getActiveOrderForARestaurantService = async ({orderId}) => {
     try{
         const restaurantOrderDetail = await prisma.order.findUnique({ // Will get a specific order in restaurantOrderDetail Variable -> Prisma will find a specific order from the Order Table and return it.
             where : {

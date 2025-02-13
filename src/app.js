@@ -15,13 +15,6 @@ import CuisinesRoutes from "./routes/internalAdminRoutes/CuisinesRoutes.js";
 import CuisineFeedRoutes from "./routes/customerRoutes/CuisineFeedRoutes.js";
 import OpeningDaysRoutes from "./routes/customerRoutes/OpeningDaysRoutes.js";
 import TopBrandsFeedRoutes from "./routes/customerRoutes/TopBrandsFeedRoutes.js"
-import CartRoutes from "./routes/customerRoutes/CartRoutes.js";
-import CheckoutRoutes from "./routes/customerRoutes/CheckoutRoutes.js";
-import ReviewRoutes from "./routes/customerRoutes/ReviewRoutes.js";
-import ItemRatingRoutes from "./routes/customerRoutes/ItemRatingRoutes.js";
-import OrderHistoryRoutes from "./routes/customerRoutes/OrderHistoryRoutes.js";
-import OrderTrackingRoutes from "./routes/customerRoutes/OrderTrackingRoutes.js";
-import ScheduleOrdersRoutes from "./routes/customerRoutes/ScheduleOrdersRoutes.js";
 import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -56,13 +49,6 @@ app.use(AddressRoutes); // Flow will start from here...
 app.use(OrdersAndPaymentRoutes); // Flow will start from here...
 app.use(OrderRoutes); // Flow will start from here...
 app.use(DeliveryRoutes); // Flow will start from here...
-// app.use(CartRoutes);
-// app.use(CheckoutRoutes);
-// app.use(ReviewRoutes);
-// app.use(ItemRatingRoutes);
-// app.use(OrderHistoryRoutes);
-// app.use(OrderTrackingRoutes);
-// app.use(ScheduleOrdersRoutes);
 console.log("After Routes");
 
 app.use(errorHandler);

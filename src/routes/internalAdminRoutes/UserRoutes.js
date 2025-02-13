@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-    getDeliveryPartner,
-    getDeliveryPartners, getRestaurantOwner,
-    getRestaurantOwners, getUser,
-    getUsers
-} from "../../controllers/internalAdminControllers/users/UserController.js";
+import { getDeliveryPartner, getDeliveryPartners , getRestaurantOwner , getRestaurantOwners , getUser , getUsers } from "../../controllers/internalAdminControllers/users/UserController.js";
 import {authenticate} from "../../middlewares/authN_authZ/Authenticate.js";
 import {authorize} from "../../middlewares/authN_authZ/Authorize.js";
 const router = express.Router();
