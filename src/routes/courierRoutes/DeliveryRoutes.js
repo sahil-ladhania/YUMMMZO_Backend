@@ -3,9 +3,9 @@ import {authenticate} from "../../middlewares/authN_authZ/Authenticate.js";
 import {authorize} from "../../middlewares/authN_authZ/Authorize.js";
 import { assignDeliveryPartner, getActiveDeliveryDetails, getAllDeliveriesDoneByAPartner, getOrderDetailsOfCurrentDeliveryForAPartner, updateOrderStatusToDelivered, updateOrderStatusToOnTheWay } from '../../controllers/courierControllers/deliveryManagement/DeliveryControllers.js';
 import { validateRequest } from '../../middlewares/dataValidation/ValidateRequestMiddleware.js';
-import { assignDeliveryPartnerValidation } from '../../utils/validations/courier/AssignDeliveryPartnerValidation.js';
-import { updateDeliveryStatusToOnTheWayValidation } from '../../utils/validations/courier/UpdateDeliveryStatusToOnTheWayValidation.js';
-import { updateDeliveryStatusToDeliveredValidation } from '../../utils/validations/courier/UpdateDeliveryStatusToDeliveredValidation.js';
+import { assignDeliveryPartnerValidation } from '../../utils/data validations/courier/AssignDeliveryPartnerValidation.js';
+import { updateDeliveryStatusToOnTheWayValidation } from '../../utils/data validations/courier/UpdateDeliveryStatusToOnTheWayValidation.js';
+import { updateDeliveryStatusToDeliveredValidation } from '../../utils/data validations/courier/UpdateDeliveryStatusToDeliveredValidation.js';
 const router  = express.Router();
 
 

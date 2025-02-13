@@ -3,8 +3,8 @@ import {authenticate} from "../../middlewares/authN_authZ/Authenticate.js";
 import {authorize} from "../../middlewares/authN_authZ/Authorize.js";
 import { createRestaurant, deleteRestaurant, updateRestaurant } from '../../controllers/vendorControllers/restaurantManagement/RestaurantControllers.js';
 import { validateRequest } from '../../middlewares/dataValidation/ValidateRequestMiddleware.js';
-import { createRestaurantValidation } from '../../utils/validations/vendor/CreateRestaurantValidation.js';
-import { updateRestaurantValidation } from '../../utils/validations/vendor/UpdateRestaurantValidation.js';
+import { createRestaurantValidation } from '../../utils/data validations/vendor/CreateRestaurantValidation.js';
+import { updateRestaurantValidation } from '../../utils/data validations/vendor/UpdateRestaurantValidation.js';
 const router = express.Router();
 
 router.post('/restaurants' , authenticate , authorize('CREATE_RESTAURANT') , validateRequest(createRestaurantValidation) , createRestaurant); // If Owner tries to create a new restaurant -> createRestaurant will start executing.

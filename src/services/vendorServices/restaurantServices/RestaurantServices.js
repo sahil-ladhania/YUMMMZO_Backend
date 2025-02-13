@@ -1,30 +1,5 @@
 import prisma from "../../../config/DB.js";
 
-// Service for Checking If the Restaurant Belongs to a Owner
-export const checkIfRestaurantBelongsToOwner = async({orderId , restaurantId}) => {
-    try{
-        // get the userId from restaurantId
-        const getUser = await prisma.restaurant.findUnique({
-            where : {
-                restaurantId : restaurantId
-            }
-        })
-        const ownerId = getUser.userId; // ownerId mil gya
-        console.log(ownerId);
-        const ifRestaurantOwnerMatches = await prisma.order.findFirst({
-            where : {
-                restaurantId : restaurantId
-            }
-        })
-        console.log(ifRestaurantOwnerMatches); // order Details mil gya
-        // ab order mai jo restaurantId hai usko check krna hai ki uska owner whi hai jo upr retrive kia hai
-    }
-    catch(error){
-        throw new Error('Error Checking Restaurant and Owner Relation : ' + error.message + error.stack);
-    }
-}
-
-
 // Service for Checking If the Restaurant Exist Based on the Restaurant Name or Restaurant ID
 export const checkIfRestaurantExist = async({restaurantName , restaurantId}) => {
     try{

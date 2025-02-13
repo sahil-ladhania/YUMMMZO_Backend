@@ -1,6 +1,7 @@
 import { checkingOrderExistence } from "../../../services/customerServices/ordersAndPaymentsServices/OrdersAndPaymentsServices.js";
-import { acceptOrRejectOrderService_R, checkIfOrderBelongsToRestaurant, getActiveOrderForARestaurantService, getAllPreviousOrdersForARestaurantService, updateOrderStatusToInProgressService_R, updateOrderStatusToOutForDeliveryService_R } from "../../../services/vendorServices/orderServices/OrderServices.js";
-import { checkIfRestaurantBelongsToOwner, checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
+import { acceptOrRejectOrderService_R, getActiveOrderForARestaurantService, getAllPreviousOrdersForARestaurantService, updateOrderStatusToInProgressService_R, updateOrderStatusToOutForDeliveryService_R } from "../../../services/vendorServices/orderServices/OrderServices.js";
+import { checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
+import { checkIfOrderBelongsToRestaurant, checkIfRestaurantBelongsToOwner } from "../../../utils/ownership validation/vendor/OrdersValidation.js";
 
 // Controller to Get All Active Orders For a Restaurant
 export const getAllPreviousOrdersForARestaurant = async (req , res , next) => {
@@ -42,34 +43,29 @@ export const getActiveOrderForARestaurant = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        // check mar : 
-        // 1. ki ye owner ka hi restaurant hai
-        const ifRestaurantBelongsToOwner = await checkIfRestaurantBelongsToOwner({orderId : orderId_INT , restaurantId : restaurantId_INT}); 
-        if(ifRestaurantBelongsToOwner){
-            // 2. order restaurant ko belong krta hai
-            // const ifOrderBelongsToRestaurant = await checkIfOrderBelongsToRestaurant({orderId : orderId_INT , restaurantId : restaurantId_INT});
+        const ownerId = req.user.userId;
+        const restaurantBelongsToOwner = await checkIfRestaurantBelongsToOwner({restaurantId : restaurantId_INT , ownerId});
+        if (!restaurantBelongsToOwner) {
+            return res.status(403).json({ 
+                message: "Unauthorized: This Restaurant Does Not Belong To You..." 
+            });
         }
-        // const ifRestaurantExist = await checkIfRestaurantExist({restaurantId: restaurantId_INT}); // Will get an existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing and will take restaurantId.
-        // if(ifRestaurantExist){
-        //     const ifOrderExist = await checkingOrderExistence({orderId : orderId_INT}); // Will get an existing order object or null in the ifOrderExist Variable -> checkingOrderExistence will start executing and will take orderId.
-        //     if(ifOrderExist){
-                // const orderForRestaurant = await getActiveOrderForARestaurantService({orderId : orderId_INT}); // Will get a specific order in the orderForRestaurant Variable -> getAOrderForARestaurantService will start executing and will take orderId.
-        //         return res.status(200).send({ 
-        //             message : "Order Successfully Retrieved...",
-        //             order : orderForRestaurant
-        //         })   
-        //     }
-        //     else{
-        //         return res.status(400).send({
-        //             message : "Order Doesnt Exist..."
-        //         })    
-        //     }
-        // }
-        // else{
-        //     return res.status(400).send({
-        //         message : "Restaurant Doesnt Exist..."
-        //     })
-        // }
+        const orderBelongsToRestaurant = await checkIfOrderBelongsToRestaurant({orderId : orderId_INT , restaurantId : restaurantId_INT});
+        if(!orderBelongsToRestaurant){
+            return res.status(403).json({ 
+                message: "Unauthorized: This Order Does Not Belong To This Specific Restaurant..." 
+            });
+        }
+        const orderForRestaurant = await getActiveOrderForARestaurantService({orderId : orderId_INT}); // Will get a specific order in the orderForRestaurant Variable -> getAOrderForARestaurantService will start executing and will take orderId.
+        if (!orderForRestaurant) {
+            return res.status(400).json({ 
+                message: "Order Doesn't Exist..." 
+            });
+        }
+        return res.status(200).json({ 
+            message: "Order Successfully Retrieved...",
+            order: orderForRestaurant
+        });
     }
     catch(error){
         next(error);

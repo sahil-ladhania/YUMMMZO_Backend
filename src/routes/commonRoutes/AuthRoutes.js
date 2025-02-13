@@ -1,9 +1,9 @@
 import express from 'express';
 import { changePasswordController , loginController , logoutController , signupController } from "../../controllers/commonControllers/authN_authZ/AuthController.js";
 import { validateRequest } from '../../middlewares/dataValidation/ValidateRequestMiddleware.js';
-import { signupSchema } from '../../utils/validations/common/SignupValidation.js';
-import { loginSchema } from '../../utils/validations/common/LoginValidation.js';
-import { changePasswordSchema } from '../../utils/validations/common/ChangePasswordValidation.js';
+import { signupSchema } from '../../utils/data validations/common/SignupValidation.js';
+import { loginSchema } from '../../utils/data validations/common/LoginValidation.js';
+import { changePasswordSchema } from '../../utils/data validations/common/ChangePasswordValidation.js';
 const router = express.Router();
 
 router.post('/signup' , validateRequest(signupSchema) , signupController); // If User tries to signup -> signupController will start executing.

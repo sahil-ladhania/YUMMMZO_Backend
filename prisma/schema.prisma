@@ -36,8 +36,8 @@ enum OrderStatus {
   IN_PROGRESS
   OUT_FOR_DELIVERY 
   ON_THE_WAY
-  DELIVERED     // Delivered to the customer
-  CANCELLED    // Cancelled by the user or restaurant
+  DELIVERED    
+  CANCELLED    
 }
 
 // Models
