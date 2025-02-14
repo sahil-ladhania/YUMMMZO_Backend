@@ -1,5 +1,6 @@
 import { searchAndSortMenuItemsService } from "../../../services/customerServices/menuFiltersServices/MenuFiltersServices.js";
 
+// Controller To Search and Filter Menu Items
 export const searchAndSortMenuItems = async (req , res , next) => {
     try {
         const { restaurantId } = req.params;
@@ -21,7 +22,7 @@ export const searchAndSortMenuItems = async (req , res , next) => {
         if(sort_by_category){
             sortingCriteria.sort_by_category = sort_by_category;
         }
-        const filteredMenuItems = await searchAndSortMenuItemsService({ restaurantId: restaurantId_INT , sortingCriteria }); // Will get filtered menu items in the filteredMenuItems Variable -> searchAndSortMenuItemsService will start executing and will take restaurantId and sortingCriteria which is a object.
+        const filteredMenuItems = await searchAndSortMenuItemsService({ restaurantId: restaurantId_INT , sortingCriteria }); 
         return res.status(200).send({  
             message : "Filtered Menu Items Successfully Retrieved...",
             filteredMenuItems : filteredMenuItems

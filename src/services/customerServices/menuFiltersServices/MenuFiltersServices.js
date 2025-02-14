@@ -1,5 +1,6 @@
 import prisma from "../../../config/DB.js";
 
+// Service to Search and Filter Menu Items
 export const searchAndSortMenuItemsService = async ({ restaurantId , sortingCriteria }) => {
     try {
         const {search , veg , availability , sort_by_price , sort_by_category} = sortingCriteria;
@@ -32,7 +33,7 @@ export const searchAndSortMenuItemsService = async ({ restaurantId , sortingCrit
                 }
             }
         }
-        const menuItems = await prisma.menuItem.findMany({ // Will get menuItems in menuItems Variable -> Prisma will find menu items that matches where and orderBy Critera from the MenuItem Table and return it.
+        const menuItems = await prisma.menuItem.findMany({ 
             where,
             orderBy,
             include : {

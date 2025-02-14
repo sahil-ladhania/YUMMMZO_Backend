@@ -5,7 +5,8 @@ export const checkIfRestaurantBelongsToOwner = async ({ restaurantId , ownerId }
     try{
         const restaurant = await prisma.restaurant.findUnique({
             where : {
-                restaurantId : restaurantId
+                restaurantId : restaurantId,
+                // userId : ownerId
             },
             select : {
                 userId : true

@@ -3,7 +3,7 @@ import { getAllRestaurantsService, getARestaurantByUserIdService, getARestaurant
 // Controller for Getting All Restaurants
 export const getAllRestaurants = async (req , res , next) => {
     try{
-        const restaurants = await getAllRestaurantsService(); // Will get all restaurants in the restaurants Variable -> getAllRestaurantsService will start executing.
+        const restaurants = await getAllRestaurantsService(); 
         return res.status(200).send({ 
             message : "Restaurants Successfully Retrieved...",
             restaurants : restaurants
@@ -19,7 +19,7 @@ export const getARestaurant = async (req , res , next) => {
     try{
         const {restaurantId} = req.params;
         const restaurantId_INT = parseInt(restaurantId);
-        const restaurant = await getARestaurantService({restaurantId : restaurantId_INT}); // Will get a specific restaurant in the restaurant Variable -> getARestaurantService will start executing and will take restaurantId.
+        const restaurant = await getARestaurantService({restaurantId : restaurantId_INT}); 
         return res.status(200).send({ 
             message : "Restaurant Successfully Retrieved...",
             restaurant : restaurant
@@ -35,7 +35,7 @@ export const getARestaurantByUserId = async (req , res , next) => {
     try{
         const {userId} = req.params;
         const userId_INT = parseInt(userId);
-        const restaurant = await getARestaurantByUserIdService({userId : userId_INT}); // Will get a specific restaurant in the restaurant Variable -> getARestaurantByUserIdService will start executing and will take userId.
+        const restaurant = await getARestaurantByUserIdService({userId : userId_INT}); 
         return res.status(200).send({ 
             message : "Restaurant Successfully Retrieved...",
             restaurant : restaurant

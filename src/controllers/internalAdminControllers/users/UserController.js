@@ -1,13 +1,9 @@
-import {
-    getADeliveryPartnerService,
-    getAllDeliveryPartners,
-    getAllRestaurantOwners,
-    getAllUsersService, getARestaurantOwnerService, getAUserService
-} from "../../../services/internalAdminServices/userServices/UserService.js";
+import { getADeliveryPartnerService, getAllDeliveryPartners, getAllRestaurantOwners, getAllUsersService, getARestaurantOwnerService, getAUserService } from "../../../services/internalAdminServices/userServices/UserService.js";
 
+// Controller to Get All Users
 export const getUsers = async(req , res , next) => {
     try{
-        const users = await getAllUsersService(); // Will get all customers in the users Variable -> getAllUsersService will start executing.
+        const users = await getAllUsersService(); 
         return res.status(200).send({
             message : "Users Successfully Retrieved...",
             user : users
@@ -18,11 +14,11 @@ export const getUsers = async(req , res , next) => {
     }
 }
 
-
+// Controller to Get a User
 export const getUser = async(req , res , next) => {
     try{
         const {customerId} = req.params;
-        const user = await getAUserService({customerId}); // Will get a specific customer in the user Variable -> getAUserService will start executing and will take customerId.
+        const user = await getAUserService({customerId}); 
         return res.status(200).send({
             message : "User Successfully Retrieved...",
             user : user
@@ -33,10 +29,10 @@ export const getUser = async(req , res , next) => {
     }
 }
 
-
+// Controller to Get All Restaurant Owners
 export const getRestaurantOwners = async(req , res , next) => {
     try{
-        const restaurantOwners = await getAllRestaurantOwners(); // Will get all vendors in the restaurantOwners Variable -> getAllRestaurantOwners will start executing.
+        const restaurantOwners = await getAllRestaurantOwners(); 
         return res.status(201).send({
             message : "Restaurant Owners Successfully Retrieved...",
             restaurantOwners : restaurantOwners
@@ -47,11 +43,11 @@ export const getRestaurantOwners = async(req , res , next) => {
     }
 }
 
-
+// Controller to Get a Restaurant Owner
 export const getRestaurantOwner = async(req , res , next) => {
     try{
         const {vendorId} = req.params;
-        const restaurantOwner = await getARestaurantOwnerService({vendorId}); // Will get a specific vendor in the restaurantOwner Variable -> getARestaurantOwnerService will start executing and will take vendorId.
+        const restaurantOwner = await getARestaurantOwnerService({vendorId}); 
         return res.status(201).send({
             message : "Restaurant Owner Successfully Retrieved...",
             restaurantOwner : restaurantOwner
@@ -62,10 +58,10 @@ export const getRestaurantOwner = async(req , res , next) => {
     }
 }
 
-
+// Controller to Get All Delivery Partners
 export const getDeliveryPartners = async(req , res , next) => {
     try{
-        const deliveryPartners = await getAllDeliveryPartners(); // Will get all partners in the deliveryPartners Variable -> getAllDeliveryPartners will start executing.
+        const deliveryPartners = await getAllDeliveryPartners();
         return res.status(201).send({
             message : "Delivery Partners Successfully Retrieved...",
             deliveryPartners : deliveryPartners
@@ -76,11 +72,11 @@ export const getDeliveryPartners = async(req , res , next) => {
     }
 }
 
-
+// Controller to Get a Delivery Partner
 export const getDeliveryPartner = async(req , res , next) => {
     try{
         const {courierId} = req.params;
-        const deliveryPartner = await getADeliveryPartnerService({courierId}); // Will get a specific partner in the deliveryPartner Variable -> getADeliveryPartnerService will start executing and will take courierId.
+        const deliveryPartner = await getADeliveryPartnerService({courierId}); 
         return res.status(201).send({
             message : "Delivery Partner Successfully Retrieved...",
             deliveryPartner : deliveryPartner

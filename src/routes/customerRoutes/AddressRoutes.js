@@ -5,10 +5,10 @@ import { createAddressValidation } from '../../utils/data validations/customer/C
 import { updateAddressValidation } from '../../utils/data validations/customer/UpdateAddressValidation.js';
 const router = express.Router();
 
-router.post('/user/:userId/address' , validateRequest(createAddressValidation) , createAddress); // If User tries to create a new address -> createAddress will start executing.
-router.get('/user/:userId/addresses' , getAllAddresses); // If User tries to get all addresses -> getAllAddresses will start executing.
-router.get('/user/:userId/address/:userAddressId' , getAAddress); // If User tries to get a specific address -> getAAddress will start executing.
-router.put('/user/:userId/address/:userAddressId' , validateRequest(updateAddressValidation) , updateAAddress); // If User tries to update an existing address -> updateAAddress will start executing.
-router.delete('/user/:userId/address/:userAddressId' , deleteAAddress); // If User tries to delete an existing address -> deleteAAddress will start executing.
+router.post('/user/:userId/address' , validateRequest(createAddressValidation) , createAddress);
+router.get('/user/:userId/addresses' , getAllAddresses); 
+router.get('/user/:userId/address/:userAddressId' , getAAddress); 
+router.put('/user/:userId/address/:userAddressId' , validateRequest(updateAddressValidation) , updateAAddress); 
+router.delete('/user/:userId/address/:userAddressId' , deleteAAddress); 
 
 export default router;

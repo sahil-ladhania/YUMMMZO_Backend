@@ -6,9 +6,9 @@ import { loginSchema } from '../../utils/data validations/common/LoginValidation
 import { changePasswordSchema } from '../../utils/data validations/common/ChangePasswordValidation.js';
 const router = express.Router();
 
-router.post('/signup' , validateRequest(signupSchema) , signupController); // If User tries to signup -> signupController will start executing.
-router.post('/login' , validateRequest(loginSchema) , loginController); // If User tries to login -> loginController will start executing.
-router.put('/change-password' , validateRequest(changePasswordSchema) , changePasswordController); // If User tries to change password -> changePasswordController will start executing.
-router.post('/logout' , logoutController); // If User tries to logout -> logoutController will start executing.
+router.post('/signup' , validateRequest(signupSchema) , signupController); 
+router.post('/login' , validateRequest(loginSchema) , loginController); 
+router.put('/change-password' , validateRequest(changePasswordSchema) , changePasswordController); 
+router.post('/logout' , logoutController);
 
 export default router;

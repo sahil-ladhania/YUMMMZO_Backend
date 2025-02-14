@@ -1,5 +1,6 @@
 import { checkIfCuisineExist, createCuisineService } from "../../../services/internalAdminServices/miscellaneous/CuisinesService.js";
 
+// Controller to Create a New Cuisine
 export const createCuisine = async(req , res , next) => { 
     try{
         const {name , description , image} = req.body;
@@ -8,9 +9,9 @@ export const createCuisine = async(req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifCuisineExist = await checkIfCuisineExist({name}); // Will get an existing cuisine object or null in the ifCuisineExist Variable -> checkIfCuisineExist will start executing and will take name.
+        const ifCuisineExist = await checkIfCuisineExist({name}); 
         if(!ifCuisineExist){
-            const createdCuisine = await createCuisineService({name , description , image}); // Will get a new created cuisine in the createdCuisine Variable -> createCuisineService will start executing and will take name , descrition and image.
+            const createdCuisine = await createCuisineService({name , description , image}); 
             return res.status(201).send({ 
                 message : "Cuisine Successfully Created...",
                 cuisine : createdCuisine

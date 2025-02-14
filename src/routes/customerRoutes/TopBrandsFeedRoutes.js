@@ -5,7 +5,7 @@ import { validateRequest } from '../../middlewares/dataValidation/ValidateReques
 import { topBrandValidation } from '../../utils/data validations/admin/TopBrandValidation.js';
 const router = express.Router();
 
-router.post('/top-brand' , validateRequest(topBrandValidation) , createTopBrand); // If User tries to create a Top Brand -> createTopBrand will start executing.
-router.get('/top-brands' , getTopBrands); // If User tries to get all Top Brands -> getTopBrands will start executing.
+router.post('/top-brand' , validateRequest(topBrandValidation) , createTopBrand); 
+router.get('/top-brands' , getTopBrands); 
 
 export default router;

@@ -1,8 +1,9 @@
 import prisma from "../../../config/DB.js";
 
+// Service to Get All Open Days
 export const getAllOpenDaysService = async() => {
     try{
-        const openDays = await prisma.openingDay.findMany(); // Will get all open days in the openDays Variable -> Prisma will find all the open days from openingDays Table and return it.
+        const openDays = await prisma.openingDay.findMany();
         return openDays;
     }
     catch(error){

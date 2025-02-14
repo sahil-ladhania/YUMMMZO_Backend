@@ -1,9 +1,9 @@
 import prisma from "../../../config/DB.js"
 
-// Service to Get Al Cuisines
+// Service to Get All Cuisines
 export const getAllCuisinesService = async() => {
     try{
-        const cuisines = await prisma.cuisine.findMany(); // Will get all cuisines in the cuisines Variable -> Prisma will find all the cuisines from Cuisine Table and return it.
+        const cuisines = await prisma.cuisine.findMany(); 
         return cuisines; 
     }
     catch(error){

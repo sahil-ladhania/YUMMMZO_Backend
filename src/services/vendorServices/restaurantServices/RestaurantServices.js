@@ -4,13 +4,13 @@ import prisma from "../../../config/DB.js";
 export const checkIfRestaurantExist = async({restaurantName , restaurantId}) => {
     try{
         if(restaurantId){
-            const ifRestaurantExist = await prisma.restaurant.findUnique({ // Will get an existing restaurant in the ifRestaurantExist Variable -> Prisma will find a specific restaurant by restaurantId from Restaurant Table and return it.
+            const ifRestaurantExist = await prisma.restaurant.findUnique({ 
                 where : {restaurantId}
             })
             return ifRestaurantExist; 
         }
         else if(restaurantName){
-            const ifRestaurantExist = await prisma.restaurant.findUnique({ // Will get an existing restaurant in the ifRestaurantExist Variable -> Prisma will find a specific restaurant by restaurantName from Restaurant Table and return it.
+            const ifRestaurantExist = await prisma.restaurant.findUnique({ 
                 where : {restaurantName}
             })
             return ifRestaurantExist; 
@@ -25,7 +25,7 @@ export const checkIfRestaurantExist = async({restaurantName , restaurantId}) => 
 // Service for Creating a new Restaurant
 export const createRestaurantService = async ({userId , restaurantName , ownerName , ownerEmail , ownerPhoneNumber , buildingNumber , floorNumber , area , nearbyLandmark , city , state , postalCode , country , restaurantImage , cuisines , openingTime , closingTime , openingDays , isPureVeg , priceForTwo}) => {
     try{
-        const cuisineDetails = await prisma.cuisine.findMany({ // Fetching cuisine details from the database for the given cuisine IDs & Ensuring that all provided cuisines exist in the database.    
+        const cuisineDetails = await prisma.cuisine.findMany({ 
             where : {
                 cuisineId : {
                     in : cuisines
@@ -35,7 +35,7 @@ export const createRestaurantService = async ({userId , restaurantName , ownerNa
         if(cuisineDetails.length !== cuisines.length){ 
             throw new Error('Some Cuisines are not Valid!!!');
         }
-        const openingDaysDetails = await prisma.openingDay.findMany({ // Fetching opening days details from the database for the given opening day IDs & Ensuring that all provided opening days exist in the database.    
+        const openingDaysDetails = await prisma.openingDay.findMany({ 
             where : {
                 openingDayId : {
                     in : openingDays
@@ -45,7 +45,7 @@ export const createRestaurantService = async ({userId , restaurantName , ownerNa
         if(openingDaysDetails.length !== openingDays.length){ 
             throw new Error('Some Days are not Valid!!!');
         }
-        const newRestaurant = await prisma.restaurant.create({ // Creating a new restaurant record in the database with the provided details & Connecting cuisines and opening days using their existing IDs.    
+        const newRestaurant = await prisma.restaurant.create({ 
             data : {
                 userId,
                 restaurantName,
@@ -83,7 +83,7 @@ export const createRestaurantService = async ({userId , restaurantName , ownerNa
 // Service for Updating an existing Restaurant
 export const updateRestaurantService = async ({restaurantIdInt , restaurantName , ownerName , ownerEmail , ownerPhoneNumber , buildingNumber , floorNumber , area , nearbyLandmark , city , state , postalCode , country , restaurantImage , cuisines , openingTime , closingTime , openingDays , isPureVeg , priceForTwo}) => {
     try{
-        const cuisineDetails = await prisma.cuisine.findMany({ // Fetching cuisine details from the database for the given cuisine IDs & Ensuring that all provided cuisines exist in the database.    
+        const cuisineDetails = await prisma.cuisine.findMany({ 
             where : {
                 cuisineId : {
                     in : cuisines
@@ -93,7 +93,7 @@ export const updateRestaurantService = async ({restaurantIdInt , restaurantName 
         if(cuisineDetails.length !== cuisines.length){ 
             throw new Error('Some Cuisines are not Valid!!!');
         }
-        const openingDaysDetails = await prisma.openingDay.findMany({ // Fetching opening days details from the database for the given opening day IDs & Ensuring that all provided opening days exist in the database.    
+        const openingDaysDetails = await prisma.openingDay.findMany({ 
             where : {
                 openingDayId : {
                     in : openingDays
@@ -103,7 +103,7 @@ export const updateRestaurantService = async ({restaurantIdInt , restaurantName 
         if(openingDaysDetails.length !== openingDays.length){ 
             throw new Error('Some Days are not Valid!!!');
         }
-        const updatedRestaurant = await prisma.restaurant.update({ // Updating an existing restaurant record in the database with the provided details & Connecting cuisines and opening days using their existing IDs.    
+        const updatedRestaurant = await prisma.restaurant.update({ 
             where : {restaurantId : restaurantIdInt},
             data : {
                 restaurantName : restaurantName,
@@ -141,7 +141,7 @@ export const updateRestaurantService = async ({restaurantIdInt , restaurantName 
 // Service for Deleting an existing Restaurant
 export const deleteRestaurantService = async ({restaurantIdInt}) => {
     try{
-        const deletedRestaurant = prisma.restaurant.delete({ // Will get the deleted restaurant in deletedRestaurant Variable -> Prisma will delete a specific restaurant from the Restaurant Table and return it.
+        const deletedRestaurant = prisma.restaurant.delete({ 
             where : {restaurantId : restaurantIdInt}
         })
         return deletedRestaurant; 

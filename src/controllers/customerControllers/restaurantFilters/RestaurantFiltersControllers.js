@@ -18,7 +18,7 @@ export const searchAndSortRestaurants = async (req , res , next) => {
         if(sort){
             sortingCriteria.sort = sort; 
         }
-        const filteredRestaurants = await searchAndSortRestaurantsService(sortingCriteria); // Will get filtered restaurants in the filteredRestaurants Variable -> searchAndSortRestaurantsService will start executing and will take sortingCriteria which is an object.
+        const filteredRestaurants = await searchAndSortRestaurantsService(sortingCriteria); 
         return res.status(200).send({  
             message : "Filtered Restaurants Successfully Retrieved...",
             filteredRestaurants : filteredRestaurants

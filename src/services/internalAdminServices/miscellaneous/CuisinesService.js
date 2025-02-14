@@ -1,9 +1,9 @@
 import prisma from "../../../config/DB.js";
 
-
+// Service to Check If a Cuisine Exist
 export const checkIfCuisineExist = async({name}) => {
     try{
-        const ifCuisineExist = await prisma.cuisine.findUnique({ // Will get a specific cuisine object or null in ifCuisineExist Variable -> Prisma will find a specific cuisine from the Cuisine Table and return it.
+        const ifCuisineExist = await prisma.cuisine.findUnique({ 
             where : {name}
         })
         return ifCuisineExist; 
@@ -13,9 +13,10 @@ export const checkIfCuisineExist = async({name}) => {
     }
 }
 
+// Service to Create a New Cuisine
 export const createCuisineService = async({name , description , image}) => {
     try{
-        const newCuisine = await prisma.cuisine.create({ // Will get a new cuisine in newCuisine Variable -> Prisma will create a new cuisine and insert it in the Cuisine Table and return it.
+        const newCuisine = await prisma.cuisine.create({ 
             data : {
                 name : name,
                 description : description,

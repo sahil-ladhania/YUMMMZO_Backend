@@ -4,6 +4,6 @@ import {authorize} from "../../middlewares/authN_authZ/Authorize.js";
 import { searchAndSortMenuItems } from '../../controllers/customerControllers/menuFilters/MenuFiltersControllers.js';
 const router = express.Router();
 
-router.get('/restaurants/:restaurantId/menu/filter' , authenticate , authorize('FILTER_MENU_ITEMS') , searchAndSortMenuItems); // If User tries to search and sort menuItems -> searchAndSortMenuItems will start executing.
+router.get('/restaurants/:restaurantId/menu/filter' , authenticate , authorize('FILTER_MENU_ITEMS') , searchAndSortMenuItems); 
 
 export default router;

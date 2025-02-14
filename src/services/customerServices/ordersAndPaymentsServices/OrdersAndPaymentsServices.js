@@ -3,7 +3,7 @@ import prisma from "../../../config/DB.js";
 // Service to Check if the Order Exist
 export const checkingOrderExistence = async({ orderId }) => {
     try {
-        const ifOrderExist = await prisma.order.findUnique({ // Will get an exsiting order or null in ifOrderExist Variable -> Prisma will find a specific order from the Order Table and return it.
+        const ifOrderExist = await prisma.order.findUnique({ 
             where : {
                 orderId : orderId
             }
@@ -18,7 +18,7 @@ export const checkingOrderExistence = async({ orderId }) => {
 // Service to Place an Order
 export const placeOrderService = async ({ userId , restaurantId , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress }) => {
     try {
-        const orderDetails = await prisma.order.create({ // Will get created order details in the orderDetails Variable -> Prisma will create a new record or order in the Order Table and return it.
+        const orderDetails = await prisma.order.create({ 
             data : {
                 userId,
                 restaurantId,

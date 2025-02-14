@@ -6,6 +6,6 @@ import { validateRequest } from '../../middlewares/dataValidation/ValidateReques
 import { placeOrderValidation } from '../../utils/data validations/customer/PlaceOrderValidation.js';
 const router = express.Router();
 
-router.post('/user/:userId/restaurant/:restaurantId/place-order' , authenticate , authorize('PLACE_ORDER_AND_PAY') , validateRequest(placeOrderValidation) , placeOrder); // If User tries to place an order -> placeOrder will start executing.
+router.post('/user/:userId/restaurant/:restaurantId/place-order' , authenticate , authorize('PLACE_ORDER_AND_PAY') , validateRequest(placeOrderValidation) , placeOrder); 
 
 export default router;

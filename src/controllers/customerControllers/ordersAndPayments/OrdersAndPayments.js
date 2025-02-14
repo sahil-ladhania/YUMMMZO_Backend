@@ -1,6 +1,7 @@
 import { checkIfUserExistsById } from "../../../services/commonServices/authServices/AuthServices.js";
 import { placeOrderService } from "../../../services/customerServices/ordersAndPaymentsServices/OrdersAndPaymentsServices.js";
 import { checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
+import { checkIfUserMatches } from "../../../utils/ownership validation/customer/OrderAndPayValidation.js";
 
 // Controller to Place an Order
 export const placeOrder = async (req , res , next) => {
@@ -14,11 +15,18 @@ export const placeOrder = async (req , res , next) => {
                 message : "Please fill all required fields..."
             })
         }
-        const ifUserExist = await checkIfUserExistsById({userId : userId_INT}); // Will get existing user object or null in the ifUserExist Variable -> checkIfUserExistsById will start executing.
+        const retrievedUserId = req.user.userId;
+        const validateUser = await checkIfUserMatches({userId : userId_INT , retrievedUserId});
+        if(!validateUser){
+            return res.status(400).send({
+                message : "User Doesnt Match..."
+            })
+        }
+        const ifUserExist = await checkIfUserExistsById({userId : userId_INT}); 
         if(ifUserExist){
-            const ifRestaurantExist = await checkIfRestaurantExist({restaurantId : restaurantId_INT}); // Will get existing restaurant object or null in the ifRestaurantExist Variable -> checkIfRestaurantExist will start executing.
+            const ifRestaurantExist = await checkIfRestaurantExist({restaurantId : restaurantId_INT}); 
             if(ifRestaurantExist){
-                const placedOrder = await placeOrderService({ userId : userId_INT , restaurantId : restaurantId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress }); // Will get placed order object in the placedOrder Variable -> placeOrderService will start executing and will take body info.
+                const placedOrder = await placeOrderService({ userId : userId_INT , restaurantId : restaurantId_INT , orderItems , totalPrice , orderStatus , userAddress , restaurantAddress }); 
                 return res.status(201).send({ 
                     message : "User Order Placed Successfully...",
                     orderDetails : placedOrder

@@ -1,7 +1,5 @@
-import { checkIfUserExistsById } from "../../../services/commonServices/authServices/AuthServices.js";
 import { assignDeliveryPartnerService, getActiveDeliveryDetailsService, getAllDeliveriesDoneByAPartnerService, getOrderDetailsOfCurrentDeliveryForAPartnerService, updateOrderStatusToDeliveredService, updateOrderStatusToOnTheWayService } from "../../../services/courierServices/deliveryServices/DeliveryServices.js";
 import { checkingOrderExistence } from "../../../services/customerServices/ordersAndPaymentsServices/OrdersAndPaymentsServices.js";
-import { checkIfRestaurantExist } from "../../../services/vendorServices/restaurantServices/RestaurantServices.js";
 import { checkIfOrderBelongsToPartner, validatePartner } from "../../../utils/ownership validation/courier/DeliveryValidation.js";
 import { checkIfOrderBelongsToRestaurant, checkIfRestaurantBelongsToOwner } from "../../../utils/ownership validation/vendor/OrdersValidation.js";
 
