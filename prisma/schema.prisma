@@ -40,6 +40,12 @@ enum OrderStatus {
   CANCELLED    
 }
 
+enum RatingType {
+  RESTAURANT
+  MENUITEM
+  DELIVERY_PARTNER
+}
+
 // Models
 
 model User {
@@ -55,6 +61,7 @@ model User {
   addresses   UserAddress[] // Relation - User can have multiple addresses
   orders      Order[]       // Relation - User can place multiple orders
   deliveries  Order[]       @relation("DeliveryPartner") // Relation - User can deliver multiple orders (if role = DELIVERY_PARTNER)
+  ratings     Rating[]      // Relation - User can give multiple ratings
 }
 
 model UserAddress {
@@ -190,6 +197,7 @@ model Order {
   user          User           @relation(fields: [userId], references: [userId]) // Relation - Order belongs to a User
   restaurant    Restaurant     @relation(fields: [restaurantId], references: [restaurantId]) // Relation - Order belongs to a Restaurant
   deliveryPartner User?        @relation("DeliveryPartner", fields: [deliveryPartnerId], references: [userId]) // Relation - Order belongs to a Delivery Partner
+  ratings       Rating[]       // Order can have multiple ratings
 }
 
 model OrderItem {
@@ -201,6 +209,20 @@ model OrderItem {
   totalPrice  Int       
   order       Order     @relation(fields: [orderId], references: [orderId], onDelete: Cascade) // Relation - Item belongs to an order
   menuItem    MenuItem  @relation(fields: [menuItemId], references: [itemId]) // Relation - Item references a menu item
+}
+
+model Rating {
+  ratingId Int @id @default(autoincrement())
+  orderId  Int
+  userId Int
+  ratingType RatingType
+  targetId Int
+  rating Int @default(0)
+  review String? @db.Text
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @default(now()) @updatedAt
+  user User @relation(fields: [userId] , references: [userId]) // User who gave the rating
+  order Order @relation(fields: [orderId] , references: [orderId]) // Order associated with the rating
 }
 
 // model Payment {
@@ -216,6 +238,7 @@ model OrderItem {
 //   SUCCESS
 //   FAILED
 // }
+//
 // model OrderTracking {
 //   trackingId     Int            @id @default(autoincrement())
 //   orderId        Int
@@ -268,8 +291,6 @@ model OrderItem {
 //   vendor             User?              @relation("VendorNotifications", fields: [userId], references: [userId])
 //   courier            User?              @relation("CourierNotifications", fields: [userId], references: [userId])
 // }
-
-//
 //
 // enum TrackingStatus {
 //   Dispatched

@@ -4,6 +4,6 @@ import { authenticate } from '../../middlewares/authN_authZ/Authenticate.js';
 import { authorize } from '../../middlewares/authN_authZ/Authorize.js';
 const router = express.Router();
 
-router.get('/restaurants/filter' , authenticate , authorize('FILTER_RESTAURANTS') , searchAndSortRestaurants); 
+router.get('/restaurants/filter' , searchAndSortRestaurants); 
 
 export default router;
