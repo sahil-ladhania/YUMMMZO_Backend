@@ -15,6 +15,7 @@ import CuisinesRoutes from "./routes/internalAdminRoutes/CuisinesRoutes.js";
 import CuisineFeedRoutes from "./routes/customerRoutes/CuisineFeedRoutes.js";
 import OpeningDaysRoutes from "./routes/customerRoutes/OpeningDaysRoutes.js";
 import TopBrandsFeedRoutes from "./routes/customerRoutes/TopBrandsFeedRoutes.js"
+import OrderSummaryAndRating from "./routes/customerRoutes/OrderSummaryAndRating.js"
 import {errorHandler} from "./middlewares/errorHandeling/ErrorHandler.js";
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -49,6 +50,7 @@ app.use(AddressRoutes);
 app.use(OrdersAndPaymentRoutes);
 app.use(OrderRoutes); 
 app.use(DeliveryRoutes); 
+app.use(OrderSummaryAndRating);
 console.log("After Routes");
 
 app.use(errorHandler);

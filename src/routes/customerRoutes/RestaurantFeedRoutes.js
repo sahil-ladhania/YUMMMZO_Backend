@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/restaurants' , getAllRestaurants);
 router.get('/restaurantss/:restaurantId' , getARestaurant); 
-router.get('/restaurantss/by-userId/:userId' , authenticate , authorize('VIEW_SPECIFIC_RESTAURANT') , getARestaurantByUserId); 
+router.get('/restaurantss/by-userId/:userId' , getARestaurantByUserId); 
 
 export default router;
