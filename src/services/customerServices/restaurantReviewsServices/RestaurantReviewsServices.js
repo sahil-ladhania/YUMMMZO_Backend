@@ -1,32 +1,30 @@
 
-export const addReview = async () => {
+
+
+export const getAllRestaurantReviewsService = async () => {
     
 };
 
-export const getAllRestaurantReviews = async () => {
+export const getAllReviewCommentsService = async () => {
     
 };
 
-export const getAllReviewsGivenByUser = async () => {
+export const getAllCommentRepliesService = async () => {
     
 };
 
-export const updateReview = async () => {
+export const commentOnReviewService = async () => {
     
 };
 
-export const commentOnReview = async () => {
+export const replyToCommentService = async () => {
     
 };
 
-export const updateReviewComment = async () => {
+export const updateCommentOnReviewService = async () => {
     
 };
 
-export const replyToComment = async () => {
-    
-};
-
-export const getAllRepliesOfComment = async () => {
+export const deleteCommentOnReviewService = async () => {
     
 };

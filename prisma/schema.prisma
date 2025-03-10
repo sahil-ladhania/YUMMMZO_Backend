@@ -63,7 +63,6 @@ model User {
   deliveries  Order[]       @relation("DeliveryPartner") // Relation - User can deliver multiple orders (if role = DELIVERY_PARTNER)
   ratings     Rating[]      // Relation - User can give multiple ratings
   comments    Comment[]     // Relation - User can write multiple comments
-  replies     Reply[]       // Relation - User can write multiple replies
 }
 
 model UserAddress {
@@ -213,6 +212,10 @@ model OrderItem {
   menuItem    MenuItem  @relation(fields: [menuItemId], references: [itemId]) // Relation - Item references a menu item
 }
 
+// User can write multiple reviews
+// User can write multiple comments on a review (Only 5 Comments in an Hour(Overall))
+// User can write reply to a comment (And then any user can reply to that reply forming nested comment-reply structure like instagram)
+
 model Rating {
   ratingId Int @id @default(autoincrement())
   orderId  Int
@@ -229,27 +232,29 @@ model Rating {
 }
 
 model Comment {
-  commentId  Int       @id @default(autoincrement())
-  ratingId   Int       
-  userId     Int       
-  comment    String    @db.Text
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @default(now()) @updatedAt
-  rating     Rating    @relation(fields: [ratingId], references: [ratingId]) // Comment belongs to a Review
-  user       User      @relation(fields: [userId], references: [userId]) // Comment belongs to a User
-  replies    Reply[]   // Relation: One Comment can have multiple replies
+  commentId   Int       @id @default(autoincrement())
+  ratingId    Int?      // Nullable: Either linked to a review OR a parent comment
+  userId      Int       
+  parentId    Int?      // ✅ NEW: If NULL, it's a comment. If NOT NULL, it's a reply to another comment.
+  comment     String    @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+  rating      Rating?   @relation(fields: [ratingId], references: [ratingId]) // Comment on a Review
+  user        User      @relation(fields: [userId], references: [userId]) // Comment belongs to a User
+  parent      Comment?  @relation("CommentParent", fields: [parentId], references: [commentId]) // ✅ Self-referencing relation (Reply to a Comment)
+  replies     Comment[] @relation("CommentParent") // ✅ A comment can have multiple replies (nested structure)
 }
 
-model Reply {
-  replyId    Int       @id @default(autoincrement())
-  commentId  Int       
-  userId     Int       
-  reply      String    @db.Text
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @default(now()) @updatedAt
-  comment    Comment   @relation(fields: [commentId], references: [commentId]) // Reply belongs to a Comment
-  user       User      @relation(fields: [userId], references: [userId]) // Reply belongs to a User
-}
+// model Reply {
+//   replyId    Int       @id @default(autoincrement())
+//   commentId  Int       
+//   userId     Int       
+//   reply      String    @db.Text
+//   createdAt  DateTime  @default(now())
+//   updatedAt  DateTime  @default(now()) @updatedAt
+//   comment    Comment   @relation(fields: [commentId], references: [commentId]) // Reply belongs to a Comment
+//   user       User      @relation(fields: [userId], references: [userId]) // Reply belongs to a User
+// }
 
 // model Payment {
 //   paymentId     Int           @id @default(autoincrement())
