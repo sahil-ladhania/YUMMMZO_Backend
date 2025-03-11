@@ -212,9 +212,9 @@ model OrderItem {
   menuItem    MenuItem  @relation(fields: [menuItemId], references: [itemId]) // Relation - Item references a menu item
 }
 
-// User can write multiple reviews
-// User can write multiple comments on a review (Only 5 Comments in an Hour(Overall))
-// User can write reply to a comment (And then any user can reply to that reply forming nested comment-reply structure like instagram)
+// A User can write multiple reviews on a Restaurant
+// A User can write multiple comments on a review (Only 5 Comments in an Hour(Overall on any Restaurant on any review))
+// A User can write reply to a comment (And then any user can reply to that reply forming nested comment-reply structure like instagram)
 
 model Rating {
   ratingId Int @id @default(autoincrement())
@@ -244,17 +244,6 @@ model Comment {
   parent      Comment?  @relation("CommentParent", fields: [parentId], references: [commentId]) // ✅ Self-referencing relation (Reply to a Comment)
   replies     Comment[] @relation("CommentParent") // ✅ A comment can have multiple replies (nested structure)
 }
-
-// model Reply {
-//   replyId    Int       @id @default(autoincrement())
-//   commentId  Int       
-//   userId     Int       
-//   reply      String    @db.Text
-//   createdAt  DateTime  @default(now())
-//   updatedAt  DateTime  @default(now()) @updatedAt
-//   comment    Comment   @relation(fields: [commentId], references: [commentId]) // Reply belongs to a Comment
-//   user       User      @relation(fields: [userId], references: [userId]) // Reply belongs to a User
-// }
 
 // model Payment {
 //   paymentId     Int           @id @default(autoincrement())

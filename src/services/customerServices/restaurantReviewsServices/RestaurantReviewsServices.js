@@ -25,25 +25,49 @@ export const getAllRestaurantReviewsService = async ({restaurantId}) => {
     }
 };
 
-export const getAllReviewCommentsService = async () => {
+// Service to Comment on a Review
+export const commentOnReviewService = async ({reviewId , userId , parentId , comment}) => {
     try {
-        
+        const commentOnReview = await prisma.comment.create({
+            data : {
+                ratingId : reviewId,
+                userId : userId,
+                parentId : parentId,
+                comment : comment
+            }
+        })
+        return commentOnReview;
+    }   
+    catch (error) {
+        throw new Error('Error Commenting on a Review : ' + error.message + error.stack);
+    }
+};
+
+// Service to Get All Direct Comments on a Review
+export const getAllDirectCommentsService = async ({reviewId}) => {
+    try {
+        const directComments = await prisma.comment.findMany({
+            where : {
+                ratingId : reviewId,
+                parentId : null
+            },
+            include : {
+                user : {
+                    select : {
+                        firstName : true,
+                        lastName : true
+                    }
+                }
+            }
+        });
+        return directComments;
     } 
     catch (error) {
-        
+        throw new Error('Error Getting All Direct Comments on a Review : ' + error.message + error.stack);
     }
 };
 
 export const getAllCommentRepliesService = async () => {
-    try {
-        
-    } 
-    catch (error) {
-        
-    }
-};
-
-export const commentOnReviewService = async () => {
     try {
         
     } 
