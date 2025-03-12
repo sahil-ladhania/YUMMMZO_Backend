@@ -1,6 +1,5 @@
 import prisma from "../../../config/DB.js";
 
-
 // Service to Get All Restaurant Reviews
 export const getAllRestaurantReviewsService = async ({restaurantId}) => {
     try {
@@ -17,6 +16,9 @@ export const getAllRestaurantReviewsService = async ({restaurantId}) => {
                     }
                 }
             },
+            orderBy : {
+                createdAt : 'desc'
+            }
         })
         return reviews;
     } 
@@ -58,6 +60,9 @@ export const getAllDirectCommentsService = async ({reviewId}) => {
                         lastName : true
                     }
                 }
+            },
+            orderBy : {
+                createdAt : 'desc'
             }
         });
         return directComments;
@@ -67,38 +72,105 @@ export const getAllDirectCommentsService = async ({reviewId}) => {
     }
 };
 
-export const getAllCommentRepliesService = async () => {
+// Service to Delete a Direct Comment on a Review
+export const deleteDirectCommentOnReviewService = async ({commentId}) => {
     try {
-        
+        const deletedComment = await prisma.comment.delete({
+            where : {
+                commentId : commentId
+            }
+        });
+        return deletedComment;
     } 
     catch (error) {
-        
+        throw new Error('Error Deleting Direct Comment on a Review : ' + error.message + error.stack);
     }
 };
 
-export const replyToCommentService = async () => {
+// Service to Update a Direct Comment on a Review
+export const updateCommentOnReviewService = async ({commentId , userId , comment}) => {
     try {
-        
+        const updatedComment = await prisma.comment.update({
+            where : {
+                commentId : commentId
+            },
+            data : {
+                userId : userId,
+                comment : comment
+            }
+        });
+        return updatedComment;
     } 
     catch (error) {
-        
+        throw new Error('Error Updating Direct Comment on a Review : ' + error.message + error.stack);
     }
 };
 
-export const updateCommentOnReviewService = async () => {
+// Service to Reply to a Comment
+export const replyToCommentService = async ({reviewId , userId , parentId , reply}) => {
     try {
-        
+        const replyToComment = await prisma.comment.create({
+            data : {
+                ratingId : reviewId,
+                userId : userId,
+                parentId : parentId,
+                comment : reply
+            }
+        })
+        return replyToComment;
     } 
     catch (error) {
-        
+        throw new Error('Error Replying to a Comment : ' + error.message + error.stack);
     }
 };
 
-export const deleteCommentOnReviewService = async () => {
+// Service to Get All Replies For a Comment
+export const getAllCommentRepliesService = async ({commentId}) => {
     try {
-        
+        const commentReplies = await prisma.comment.findMany({
+            where : {
+                parentId : commentId
+            }
+        })
+        return commentReplies;
     } 
     catch (error) {
-        
+        throw new Error('Error Getting All Replies on a Comment : ' + error.message + error.stack);
+    }
+};
+
+// Service to Update a Reply on Comment
+export const updateReplyOnCommentService = async ({commentId , userId , parentId , reply}) => {
+    try {
+        const updatedReply = await prisma.comment.update({
+            where : {
+                commentId : commentId
+            },
+            data : {
+                userId : userId,
+                parentId : parentId,
+                comment : reply
+            }
+        })
+        return updatedReply;
+    } 
+    catch (error) {
+        throw new Error('Error Updating a Reply on a Comment : ' + error.message + error.stack);
+    }
+};
+
+
+// Service to Delete a Reply on Comment
+export const deleteReplyOnCommentService = async ({commentId}) => {
+    try {
+        const deletedReply = await prisma.comment.delete({
+            where : {
+                commentId : commentId
+            },
+        })
+        return deletedReply;      
+    } 
+    catch (error) {
+        throw new Error('Error Deleting a Reply on a Comment : ' + error.message + error.stack);
     }
 };
