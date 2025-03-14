@@ -130,6 +130,17 @@ export const getAllCommentRepliesService = async ({commentId}) => {
         const commentReplies = await prisma.comment.findMany({
             where : {
                 parentId : commentId
+            },
+            include : {
+                user : {
+                    select : {
+                        firstName : true,
+                        lastName : true
+                    }
+                }
+            },
+            orderBy : {
+                createdAt : 'desc'
             }
         })
         return commentReplies;
